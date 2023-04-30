@@ -19,6 +19,14 @@
 
 /* Scroll bar CSS Ends */
 
+/* Nav bar CSS Starts */
+.nav-bar-section-02
+{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+/* Nav bar CSS Ends */
 .OS-Simulator-Heading {
     margin: 30px auto;
 }
