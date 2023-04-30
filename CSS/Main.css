@@ -1,0 +1,54 @@
+/* Scroll bar CSS Starts */
+.card-text::-webkit-scrollbar {
+    width: 3px;
+}
+
+.card-text::-webkit-scrollbar-track {
+    border-radius: 6px;
+    border: 1px solid lightgray;
+}
+
+.card-text::-webkit-scrollbar-thumb {
+    background: lightgray;
+    border-radius: 3px;
+}
+
+.card-text::-webkit-scrollbar-thumb:hover {
+    background: darkgray;
+}
+
+/* Scroll bar CSS Ends */
+
+.OS-Simulator-Heading {
+    margin: 30px auto;
+}
+
+.OS-Simulator-Div-01 {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 20px;
+}
+
+.card {
+    margin: 12px;
+}
+
+.card-head {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 11rem;
+    border-bottom: 3px solid black;
+}
+
+.card-title {
+    font-weight: 400;
+}
+
+.card-text {
+    font-weight: 200;
+    height: 6rem;
+    overflow: auto;
+}
