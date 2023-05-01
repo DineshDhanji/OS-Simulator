@@ -1,8 +1,31 @@
-.MM-Div-01
-{
+/* Nav bar CSS Starts */
+.nav-bar-section-02 {
+    justify-content: flex-end;
+    align-items: center;
+}
+
+@media (max-width: 991px) {
+    .nav-bar-section-02 {
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+}
+
+/* Nav bar CSS Ends */
+.MM-Div-01 {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     text-align: center;
+}
+
+.MMF-Div-01 {
+    border: 1px solid red;
+    height: 80vh;
+}
+.OS-Simulator-Heading
+{
+    padding: 30px 0;
 }
