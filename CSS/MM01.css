@@ -89,12 +89,17 @@
 }
 
 .MainMemory-Section {
+    border: 1px solid white;
+    background-color: white;
+    height: 6px;
+}
+
+.Used {
     border: 1px solid black;
     background-color: #ffc107;
     height: 6px;
 }
-
-.MainMemory-Section-Used {
+.Occupied {
     border: 1px solid black;
     background-color: black;
     height: 6px;

@@ -17,9 +17,20 @@
     <link rel="stylesheet" href="../CSS/Memory Management.css">
     <link rel="stylesheet" href="../CSS/MM01.css">
     <!-- PyScript -->
-    <!-- <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
-    <script defer src="https://pyscript.net/latest/pyscript.js"></script> -->
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
 
+    <!-- MyJavaScript -->
+    <script>
+       function FillMemory(s, e)
+       {
+            let a = document.getElementsByClassName("MainMemory-Section")
+            for (let i = s; i < e+1; i++)
+            {
+                a[i].classList.add("Used");
+            }
+       }
+    </script>
 </head>
 
 <body>
@@ -69,9 +80,9 @@
                         <label for="Technique" style="margin: 15px 0px;">Select the respective allocation
                             technique:</label>
                         <div class="data-input-02-btn">
-                            <button type="button" class="btn btn-warning col-5">First Fit</button>
-                            <button type="button" class="btn btn-warning col-5">Best Fit</button>
-                            <button type="button" class="btn btn-warning col-5">Worst Fit</button>
+                            <button type="button" py-click="ApplyFirstFit()" class="btn btn-warning col-5">First Fit</button>
+                            <button type="button" py-click="ApplyBestFit()" class="btn btn-warning col-5">Best Fit</button>
+                            <button type="button" py-click="ApplyWorstFit()" class="btn btn-warning col-5">Worst Fit</button>
                         </div>
                     </div>
                 </div>
@@ -103,13 +114,13 @@
                 <div class="MainMemory-Section"></div>
                 <div class="MainMemory-Section"></div>
                 <div class="MainMemory-Section"></div>
-                <div class="MainMemory-Section-Used"></div>
-                <div class="MainMemory-Section-Used"></div>
-                <div class="MainMemory-Section-Used"></div>
-                <div class="MainMemory-Section-Used"></div>
-                <div class="MainMemory-Section-Used"></div>
-                <div class="MainMemory-Section-Used"></div>
-                <div class="MainMemory-Section-Used"></div>
+                <div class="MainMemory-Section Occupied"></div> <!-- 12 to 18-->
+                <div class="MainMemory-Section Occupied"></div>
+                <div class="MainMemory-Section Occupied"></div>
+                <div class="MainMemory-Section Occupied"></div>
+                <div class="MainMemory-Section Occupied"></div>
+                <div class="MainMemory-Section Occupied"></div>
+                <div class="MainMemory-Section Occupied"></div>
                 <div class="MainMemory-Section"></div>
                 <div class="MainMemory-Section"></div>
                 <div class="MainMemory-Section"></div>
@@ -144,12 +155,12 @@
                 <div class="MainMemory-Section"></div>
                 <div class="MainMemory-Section"></div>
                 <div class="MainMemory-Section"></div>
-                <div class="MainMemory-Section-Used"></div>
-                <div class="MainMemory-Section-Used"></div>
-                <div class="MainMemory-Section-Used"></div>
-                <div class="MainMemory-Section-Used"></div>
-                <div class="MainMemory-Section-Used"></div>
-                <div class="MainMemory-Section-Used"></div>
+                <div class="MainMemory-Section Occupied"></div> <!-- 53 to 58-->
+                <div class="MainMemory-Section Occupied"></div>
+                <div class="MainMemory-Section Occupied"></div>
+                <div class="MainMemory-Section Occupied"></div>
+                <div class="MainMemory-Section Occupied"></div>
+                <div class="MainMemory-Section Occupied"></div>
                 <div class="MainMemory-Section"></div>
                 <div class="MainMemory-Section"></div>
                 <div class="MainMemory-Section"></div>
@@ -184,9 +195,10 @@
                 <div class="MainMemory-Section"></div>
                 <div class="MainMemory-Section"></div>
                 <div class="MainMemory-Section"></div>
-                <div class="MainMemory-Section-Used"></div>
-                <div class="MainMemory-Section-Used"></div>
-                <div class="MainMemory-Section-Used"></div>
+                <div class="MainMemory-Section Occupied"></div> <!--93 to 95 -->
+                <div class="MainMemory-Section Occupied"></div>
+                <div class="MainMemory-Section Occupied"></div>
+                <div class="MainMemory-Section"></div>
                 <div class="MainMemory-Section"></div>
                 <div class="MainMemory-Section"></div>
                 <div class="MainMemory-Section"></div>
@@ -195,6 +207,78 @@
             </div>
             <div class="fs-6" style="margin-left: 10px;">Main Memory <br>Total Size: 101</div>
         </div>
+    <py-script>
+        from js import FillMemory
+
+        # Initializing array
+        MM = [0 for i in range(101)]
+        for i in range(12, 19, 1):
+            MM[i] = 1
+        for i in range(53, 59, 1):
+            MM[i] = 1
+        for i in range(93, 96, 1):
+            MM[i] = 1
+
+
+        def ApplyBestFit():
+            MyDiv = Element("ProcessSize");
+            
+            flag = 0
+            start = 0
+            end = 0
+            preStart=[]
+            preEnd=[]
+
+            if MyDiv.value != '' and int(MyDiv.value) > 0 and int(MyDiv.value) < 101:
+                MyDivValue = int(MyDiv.value)
+                for i in range(101):
+                    if MM[i] == 0:
+                        for j in range(i, 101, 1):
+                            if MM[j] == 1:
+                                preStart.append(i)
+                                preEnd.append(j-1)
+                                i=j
+                for i in range(len(preStart)):
+                    print("a:{} b:{}".format(preStart[i], preEnd[i]))
+
+            #if flag == 1:
+            #    print('s:{} e:{}'.format(start,end))
+            #    # FillMemory(start, end)  # JavaScript Function
+            #    for j in range(start, end+1, 1):
+            #        MM[j] = 1
+
+
+        def ApplyFirstFit():
+            MyDiv = Element("ProcessSize");
+            
+            flag = 0
+            start = 0
+            end = 0
+
+            if MyDiv.value != '' and int(MyDiv.value) > 0 and int(MyDiv.value) < 101:
+                MyDivValue = int(MyDiv.value)
+                for i in range(101):
+                    if MM[i] == 0:
+                        temp = MyDivValue
+                        if i + temp <= 101:
+                            for j in range(i, i + MyDivValue, 1):
+                                if MM[j] == 0:
+                                    temp=temp-1
+                                    if temp == 0:
+                                        start = i
+                                        end = j
+                                        flag = 1
+                                        break
+                                else:
+                                    i = j
+                                    break
+                    if flag == 1:
+                        FillMemory(start, end)  # JavaScript Function
+                        for j in range(start, end+1, 1):
+                            MM[j] = 1
+                        break
+
+    </py-script>
     </div>
     <!-- <div class="MM01Div-02 container col-12">
         
