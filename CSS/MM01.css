@@ -1,0 +1,122 @@
+/* Scroll bar CSS Starts */
+.MM01Div-02-01::-webkit-scrollbar,
+.MM01Div-02-02::-webkit-scrollbar {
+    width: 3px;
+}
+
+.MM01Div-02-01::-webkit-scrollbar-track,
+.MM01Div-02-02::-webkit-scrollbar-track {
+    border-radius: 6px;
+    border: 1px solid lightgray;
+}
+
+.MM01Div-02-01::-webkit-scrollbar-thumb,
+.MM01Div-02-02::-webkit-scrollbar-thumb {
+    background: #ffc107;
+    border-radius: 3px;
+}
+
+.MM01Div-02-01::-webkit-scrollbar-thumb:hover,
+.MM01Div-02-02::-webkit-scrollbar-thumb:hover {
+    background: darkgray;
+}
+
+.MM01Div-01 {
+    border: 1px solid black;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.MM01Div-01-01 {
+    border: 1px solid red;
+    height: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.data-input-div {
+    border: 1px solid black;
+    height: 24rem;
+    padding: 10px;
+    border: 2px solid #ffc107;
+    border-radius: 4px;
+    margin: 10px 0px;
+}
+
+.data-input-01 {
+    margin: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.data-input-02 {
+    margin: 30px 20px;
+}
+
+.data-input-02-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.data-input-02-btn button {
+    margin: 10px 0px;
+}
+
+.data-input-info {
+    border: 2px solid lightgray;
+    height: auto;
+    padding: 10px;
+    border-radius: 4px;
+    margin: 10px 0px;
+}
+
+.MM01Div-01-02 {
+    border: 1px solid blue;
+    height: 40rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.MainMemory {
+    border: 1px solid black;
+    height: 38rem;
+}
+
+.MainMemory-Section {
+    border: 1px solid black;
+    background-color: #ffc107;
+    height: 6px;
+}
+
+.MM01Div-02 {
+    border: 1px solid black;
+    display: flex;
+    flex-wrap: wrap;
+    height: auto;
+}
+
+.MM01Div-02-01 {
+    border: 1px solid blue;
+    height: 25rem;
+    overflow: auto;
+    margin: 10px 0px;
+}
+
+.MM01Div-02-02 {
+    border: 1px solid red;
+    height: 25rem;
+    overflow: auto;
+    margin: 10px 0px;
+}
+
+.output,
+.terminal {
+    border: 1px solid black;
+    height: auto;
+}
