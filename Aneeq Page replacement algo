@@ -1,0 +1,24 @@
+def FIFO(pages, pagefault, frame_size, page_frame):
+    for page in pages:
+        page_found = False
+        
+        for i in range(len(page_frame)):
+            if(page_frame[i] == page):
+                page_found = True
+            
+        if not page_found:
+            index = pagefault % frame_size
+            page_frame[index] = page
+            pagefault += 1
+            
+        print(page_frame, "\n")
+        
+    return
+
+pages = [1 , 2 , 3 , 4 , 5 , 6 , 7 , 8 , 9 , 10]
+pagefault = 0
+frame_size = int(input("Enter number of page frames: "))
+page_frame = []
+for i in range(frame_size):
+    page_frame.append(-1)
+FIFO(pages , pagefault , frame_size , page_frame)
