@@ -10,7 +10,11 @@ def priority_scheduling(processes):
     processes = sorted(processes, key=lambda p: p.priority, reverse=True)
     n = len(processes)
     completed = [False] * n
-    current_time = 0
+    cur_time = 0
+    current_time = []
+    completion_time = []
+    turnaround_time = []
+    waiting_time = []
     total_turnaround_time = 0
     total_waiting_time = 0
     print("----------------------- Priority Scheduling -----------------------")
@@ -18,10 +22,10 @@ def priority_scheduling(processes):
 
     while True:
         # Find the highest priority process that has arrived but has not been executed
-        highest_priority = -1
+        highest_priority = 1000000 #Supposing a max 
         min_index = -1
         for i in range(n):
-            if not completed[i] and processes[i].arrival_time <= current_time and processes[i].priority > highest_priority:
+            if not completed[i] and processes[i].arrival_time <= cur_time and processes[i].priority < highest_priority:
                 highest_priority = processes[i].priority
                 min_index = i
 
@@ -31,16 +35,20 @@ def priority_scheduling(processes):
 
         # Execute the highest priority process
         process = processes[min_index]
-        completion_time = current_time + process.burst_time
-        turnaround_time = completion_time - process.arrival_time
-        waiting_time = turnaround_time - process.burst_time
-        total_turnaround_time += turnaround_time
-        total_waiting_time += waiting_time
+        current_time.append(cur_time)
+        compl_time = cur_time + process.burst_time
+        completion_time.append(compl_time)
+        ta_time = compl_time - process.arrival_time
+        turnaround_time.append(ta_time)
+        wait_time = ta_time - process.burst_time
+        waiting_time.append(wait_time)
+        total_turnaround_time += ta_time
+        total_waiting_time += wait_time
         completed[min_index] = True
-        print(process.pid, "\t |", process.arrival_time, "\t |", process.burst_time, "\t |", process.priority, "\t |", completion_time, "\t |", turnaround_time, "\t |", waiting_time, " |")
+        print(process.pid, "\t |", process.arrival_time, "\t |", process.burst_time, "\t |", process.priority, "\t |", compl_time, "\t |", ta_time, "\t |", wait_time, " |")
 
         # Update the current time
-        current_time = completion_time
+        cur_time = compl_time
 
     # Calculate the average waiting time
     avg_waiting_time = total_waiting_time / n
