@@ -1,4 +1,4 @@
-/* Scroll bar CSS Starts */
+/* Scroll Bar CSS Starts */
 .MM01Div-02-01::-webkit-scrollbar,
 .MM01Div-02-02::-webkit-scrollbar {
     width: 3px;
@@ -20,9 +20,26 @@
 .MM01Div-02-02::-webkit-scrollbar-thumb:hover {
     background: darkgray;
 }
+::-webkit-scrollbar {
+    width: 6px;
+}
 
+::-webkit-scrollbar-track {
+    border-radius: 6px;
+    border: 1px solid lightgray;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #ffc107;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: darkgray;
+}
+
+/* Scroll Bar CSS Ends */
 .MM01Div-01 {
-    /* border: 1px solid black; */
     height: auto;
     display: flex;
     flex-wrap: wrap;
@@ -141,7 +158,7 @@
     height: auto;
     padding: 0px 6px;
 }
-.list-group-item
-{
+
+.list-group-item {
     display: flex;
 }

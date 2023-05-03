@@ -12,7 +12,7 @@ def fcfs_scheduling(processes):
     
     # (DINESH) I have made lists of current time, completion time, waiting time, turnaround time. In table you have to print pid, arrival time, burst time from the process class attributes and completion time, turnaround time , waiting time from these lists
     # Initialize the current time and waiting time
-    cur_time =0
+    cur_time = 0
     current_time = []
     completion_time = []
     wait_time = 0

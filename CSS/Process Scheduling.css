@@ -13,19 +13,137 @@
 }
 
 /* Nav bar CSS Ends */
+/* Scroll Bar CSS Starts */
+.Terminal-Process-Details::-webkit-scrollbar {
+    width: 3px;
+}
+
+.Terminal-Process-Details::-webkit-scrollbar-track {
+    border-radius: 6px;
+    border: 1px solid lightgray;
+}
+
+.Terminal-Process-Details::-webkit-scrollbar-thumb {
+    background: #0d6efd;
+    border-radius: 3px;
+}
+
+.Terminal-Process-Details::-webkit-scrollbar-thumb:hover {
+    background: darkgray;
+}
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 6px;
+    border: 1px solid lightgray;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #0d6efd;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: darkgray;
+}
+
+/* Scroll Bar CSS Ends */
 .OS-Simulator-Heading {
     padding: 30px 0;
 }
 
 .PSDiv-01 {
-    border: 1px solid black;
-    height: 25rem;
+    height: auto;
     display: flex;
-    /* justify-content: center; */
+    justify-content: space-evenly;
+    align-items: center;
     flex-wrap: wrap;
 }
 
-.Input-Field
+.Input-Field {
+    padding: 10px;
+    border: 2px solid #0d6efd;
+    height: auto;
+    border-radius: 4px;
+}
+
+.ArrivalTimeDiv,
+.BurstTimeDiv,
+.PriorityTimeDiv {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 10px 0px;
+}
+
+.ArrivalTimeDiv label,
+.BurstTimeDiv label,
+.PriorityTimeDiv label {
+    padding: 6px 0px;
+}
+
+.ArrivalTime,
+.BurstTime,
+.PriorityTime {
+    height: 2.3rem;
+    padding: 0px 4px;
+}
+.Add-Process
 {
-    border: 1px solid blue;
+    margin: 7px;
+}
+
+.Input-Field-Div-01 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 12rem;
+    margin: 20px 0px;
+}
+
+.PSDiv-01-01,
+.PSDiv-01-02 {
+    margin: 10px 5px;
+}
+
+.Terminal {
+    height: 24rem;
+    margin: 10px 5px;
+    padding: 3px 10px;
+    border: 2px solid lightgray;
+    border-radius: 4px;
+}
+
+.Terminal-Process-Details {
+    height: 20rem;
+    overflow: overlay;
+    padding: 0px 10px;
+}
+
+.Terminal-Process-Details .list-group-item {
+    display: flex;
+    text-align: center;
+}
+.PSDiv-02 {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+    height: auto;
+    padding: 0px 0px 10px 0px;
+}
+.PSDiv-02-01{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+    height: auto;
+    padding: 5px;
+}
+.PSDiv-02-01 button{
+    margin: 10px;
 }

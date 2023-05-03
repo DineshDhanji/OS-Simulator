@@ -48,7 +48,57 @@
         <div class="row display-4">Process Scheduling</div>
     </div>
     <div class="PSDiv-01 container-fluid">
-       <div class="Input-Field col-5"></div>
+        <div class="PSDiv-01-01 col-10 col-lg-5">
+            <div class="Input-Field ">
+                <div class="lead fs-4 text-center" style="margin: 10px 0px">Enter the following required details of
+                    the process</div>
+                <div class="container Input-Field-Div-01">
+                    <div class="ArrivalTimeDiv col-10">
+                        <label for="ArrivalTime" class="col-5">Arrival Time</label>
+                        <input type="number" class="col-6 ArrivalTime" placeholder="Example: 0">
+                    </div>
+                    <div class="BurstTimeDiv col-10">
+                        <label for="BurstTime" class="col-5">Burst Time</label>
+                        <input type="number" class="col-6 BurstTime" placeholder="Example: 10">
+                    </div>
+                    <div class="PriorityTimeDiv col-10">
+                        <label for="PriorityTime" class="col-5">Priority Time</label>
+                        <input type="number" class="col-6 PriorityTime" placeholder="Example: 3">
+                    </div>
+                    <button type="button" class="btn btn-primary Add-Process">Add Process</button>
+                </div>
+            </div>
+        </div>
+        <div class="PSDiv-01-02 col-10 col-lg-6">
+            <div class="Terminal">
+                <div class="lead fs-4" style="padding:10px 11px;">Processes Details</div>
+                <div class="Terminal-Process-Details">
+                    <ul class="list-group list-group-flush" style="padding: 0px 8px;">
+                        <li class="list-group-item">
+                            <div class="col-3 fw-medium">PID</div>
+                            <div class="col-3 fw-medium">Arrival Time</div>
+                            <div class="col-3 fw-medium">Burst Time</div>
+                            <div class="col-3 fw-medium">Priority</div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="col-3">0</div>
+                            <div class="col-3">0</div>
+                            <div class="col-3">10</div>
+                            <div class="col-3">3</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="PSDiv-02 container-fluid">
+        <div class="lead fs-4 text-center" style="margin: 10px 5px">Select the respective algorithm for the demonstration</div>
+        <div class="PSDiv-02-01">
+            <button type="button" class="btn btn-primary">FCFS Algorithm</button>
+            <button type="button" class="btn btn-primary">SJF Algorithm</button>
+            <button type="button" class="btn btn-primary">Priority Algorithm</button>
+            <button type="button" class="btn btn-primary">Round Robin Algorithm</button>
+        </div>
     </div>
 </body>
 
