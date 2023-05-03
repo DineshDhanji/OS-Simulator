@@ -74,7 +74,7 @@
                     <div class="data-input-01">
                         <label for="Process Size">Process Size</label>
                         <input type="number" name="ProcessSize" id="ProcessSize" class="col-7"
-                            placeholder="Enter the process size" min="1" max="101" step="1">
+                            placeholder="Enter the process size in MB" min="1" max="101" step="1">
                     </div>
                     <div class="data-input-02">
                         <label for="Technique" style="margin: 15px 0px;">Select the respective allocation
@@ -203,9 +203,8 @@
                 <div class="MainMemory-Section"></div>
                 <div class="MainMemory-Section"></div>
                 <div class="MainMemory-Section"></div>
-                <div class="MainMemory-Section"></div>
             </div>
-            <div class="fs-6" style="margin-left: 10px;">Main Memory <br>Total Size: 101</div>
+            <div class="fs-6" style="margin-left: 10px;">Main Memory <br>Total Size: 101MB</div>
         </div>
     <py-script>
         from js import FillMemory
@@ -219,34 +218,93 @@
         for i in range(93, 96, 1):
             MM[i] = 1
 
-
         def ApplyBestFit():
             MyDiv = Element("ProcessSize");
             
-            flag = 0
+            flag = 1
             start = 0
             end = 0
             preStart=[]
             preEnd=[]
 
             if MyDiv.value != '' and int(MyDiv.value) > 0 and int(MyDiv.value) < 101:
-                MyDivValue = int(MyDiv.value)
-                for i in range(101):
+                i = 0   
+                j = 0   
+                while (i < 101 and flag):
                     if MM[i] == 0:
-                        for j in range(i, 101, 1):
+                        j=i
+                        while(j < 101):
                             if MM[j] == 1:
                                 preStart.append(i)
                                 preEnd.append(j-1)
-                                i=j
-                for i in range(len(preStart)):
-                    print("a:{} b:{}".format(preStart[i], preEnd[i]))
+                                i = j
+                                break
+                            if j == 100:
+                                preStart.append(i)
+                                preEnd.append(j)
+                                flag=0
+                                break
+                            j+=1
+                    i+=1
+                
+                if len(preStart) != 0:
+                    flag = 0 # Now it being used as whether we can allocated the memory or not.
+                    end = 2000
+                    start = 1000
+                   
+                    for i in range(len(preStart)):
+                        if  preEnd[i] - preStart[i] + 1 <= end-start+1 and preEnd[i] - preStart[i] + 1 >= int(MyDiv.value): 
+                            start = preStart[i]
+                            end = preEnd[i]
+                            flag = 1
+                    if flag == 1:
+                        FillMemory(start, start+int(MyDiv.value)-1)
+                        for j in range(start, start+int(MyDiv.value), 1):
+                            MM[j] = 1
+        
+        def ApplyWorstFit():
+            MyDiv = Element("ProcessSize");
+            
+            flag = 1
+            start = 0
+            end = 0
+            preStart=[]
+            preEnd=[]
 
-            #if flag == 1:
-            #    print('s:{} e:{}'.format(start,end))
-            #    # FillMemory(start, end)  # JavaScript Function
-            #    for j in range(start, end+1, 1):
-            #        MM[j] = 1
-
+            if MyDiv.value != '' and int(MyDiv.value) > 0 and int(MyDiv.value) < 101:
+                i = 0   
+                j = 0   
+                while (i < 101 and flag):
+                    if MM[i] == 0:
+                        j=i
+                        while(j < 101):
+                            if MM[j] == 1:
+                                preStart.append(i)
+                                preEnd.append(j-1)
+                                i = j
+                                break
+                            if j == 100:
+                                preStart.append(i)
+                                preEnd.append(j)
+                                flag=0
+                                break
+                            j+=1
+                    i+=1
+                
+                if len(preStart) != 0:
+                    flag = 0 # Now it being used as whether we can allocated the memory or not.
+                    end = -1
+                    start = 0
+                   
+                    for i in range(len(preStart)):
+                        if  preEnd[i] - preStart[i] + 1 >= end-start+1 and preEnd[i] - preStart[i] + 1 >= int(MyDiv.value): 
+                            start = preStart[i]
+                            end = preEnd[i]
+                            flag = 1
+                    if flag == 1:
+                        FillMemory(start, start+int(MyDiv.value)-1)  # JavaScript Function
+                        for j in range(start, start+int(MyDiv.value), 1):
+                            MM[j] = 1
 
         def ApplyFirstFit():
             MyDiv = Element("ProcessSize");
@@ -277,10 +335,9 @@
                         for j in range(start, end+1, 1):
                             MM[j] = 1
                         break
-
     </py-script>
     </div>
-    <!-- <div class="MM01Div-02 container col-12">
+    <div class="MM01Div-02 container col-12">
         
         <div class="MM01Div-02-01 col-12 col-lg-6">
             <div class="lead fs-4" style="padding:10px 7px;">Output</div>
@@ -292,7 +349,7 @@
             <div class="terminal"></div>
         </div>
 
-    </div> -->
+    </div>
 </body>
 
 </html>
