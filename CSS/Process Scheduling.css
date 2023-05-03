@@ -13,7 +13,19 @@
 }
 
 /* Nav bar CSS Ends */
-.OS-Simulator-Heading
-{
+.OS-Simulator-Heading {
     padding: 30px 0;
+}
+
+.PSDiv-01 {
+    border: 1px solid black;
+    height: 25rem;
+    display: flex;
+    /* justify-content: center; */
+    flex-wrap: wrap;
+}
+
+.Input-Field
+{
+    border: 1px solid blue;
 }
