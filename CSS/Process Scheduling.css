@@ -147,3 +147,13 @@
 .PSDiv-02-01 button{
     margin: 10px;
 }
+.PSDiv-03
+{
+    border: 1px solid red;
+    height: auto;
+}
+#output
+{
+    border: 1px solid blue;
+    height: 10rem;
+}
