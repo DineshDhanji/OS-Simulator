@@ -9,13 +9,16 @@ class Process:
 def fcfs_scheduling(processes):
     # Sort the processes based on their arrival time
     processes = sorted(processes, key=lambda p: p.arrival_time)
-    for process in processes:
-        print(process.pid, process.arrival_time, process.burst_time)
     
-    print("\n")
+    # (DINESH) I have made lists of current time, completion time, waiting time, turnaround time. In table you have to print pid, arrival time, burst time from the process class attributes and completion time, turnaround time , waiting time from these lists
     # Initialize the current time and waiting time
-    current_time = 0
-    waiting_time = 0
+    cur_time =0
+    current_time = []
+    completion_time = []
+    wait_time = 0
+    waiting_time = []
+    ta_time = 0
+    turnaround_time = []
     total_turnaround_time = 0
     total_waiting_time = 0
     print("--------------------------- FCFS ---------------------------")
@@ -24,17 +27,20 @@ def fcfs_scheduling(processes):
     # Loop through the processes and calculate their waiting time
     for process in processes:
         # Calculate the waiting time for the current process
-        current_time = max(current_time, process.arrival_time)
-        completion_time = current_time + process.burst_time
-        turnaround_time = completion_time - process.arrival_time
-        waiting_time = turnaround_time - process.burst_time
-        # waiting_time += max(0, current_time - process.arrival_time)
+        cur_time = max(cur_time, process.arrival_time)
+        current_time.append(cur_time)
+        compl_time = cur_time + process.burst_time
+        completion_time.append(compl_time)
+        ta_time = compl_time - process.arrival_time
+        turnaround_time.append(ta_time)
+        wait_time = ta_time - process.burst_time
+        waiting_time.append(wait_time)
 
         # Update the current time
-        current_time += process.burst_time
-        total_turnaround_time += turnaround_time
-        total_waiting_time += waiting_time
-        print(process.pid, "\t |", process.arrival_time, "\t |", process.burst_time, "\t |", completion_time, "\t |",turnaround_time, "\t |", waiting_time, " |")
+        cur_time += process.burst_time
+        total_turnaround_time += ta_time
+        total_waiting_time += wait_time
+        print(process.pid, "\t |", process.arrival_time, "\t |", process.burst_time, "\t |", compl_time, "\t |",ta_time, "\t |", wait_time, " |")
 
     # Calculate the average waiting time
     avg_waiting_time = total_waiting_time / len(processes)
@@ -47,7 +53,6 @@ def fcfs_scheduling(processes):
 # Example usage
 if __name__ == '__main__':
     
-    count = 0
     # Create some processes
     processes = [
         Process(1, 0, 10),
@@ -55,6 +60,7 @@ if __name__ == '__main__':
         Process(3, 2, 2),
         Process(4, 3, 1)
     ]
+    # (DINESH) Below code is for taking manual input you have to implement this in GUI
     # no_processess = int(input("Enter number of processes : "))
     # processes = []
     # for i in range(0, no_processess):
@@ -65,5 +71,3 @@ if __name__ == '__main__':
 
     # Run the FCFS scheduling algorithm
     fcfs_scheduling(processes)
-
-    # Print the average waiting time
