@@ -22,7 +22,7 @@
 }
 
 .MM01Div-01 {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     height: auto;
     display: flex;
     flex-wrap: wrap;
@@ -112,21 +112,23 @@
 }
 
 .MM01Div-02 {
-    border: 1px solid black;
+    border: 1px solid lightgrey;
+    border-radius: 4px;
     display: flex;
+    justify-content: space-between;
     flex-wrap: wrap;
     height: auto;
+    width: 78rem;
+    margin: 30px auto;
 }
 
 .MM01Div-02-01 {
-    border: 1px solid blue;
     height: 25rem;
     overflow: auto;
     margin: 10px 0px;
 }
 
 .MM01Div-02-02 {
-    border: 1px solid red;
     height: 25rem;
     overflow: auto;
     margin: 10px 0px;
@@ -134,6 +136,12 @@
 
 .output,
 .terminal {
-    border: 1px solid black;
+    border: 1px solid lightgray;
+    border-radius: 4px;
     height: auto;
+    padding: 0px 6px;
+}
+.list-group-item
+{
+    display: flex;
 }
