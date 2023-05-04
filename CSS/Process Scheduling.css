@@ -31,6 +31,7 @@
 .Terminal-Process-Details::-webkit-scrollbar-thumb:hover {
     background: darkgray;
 }
+
 ::-webkit-scrollbar {
     width: 6px;
 }
@@ -89,8 +90,8 @@
     height: 2.3rem;
     padding: 0px 4px;
 }
-.Add-Process
-{
+
+.Add-Process {
     margin: 7px;
 }
 
@@ -126,6 +127,7 @@
     display: flex;
     text-align: center;
 }
+
 .PSDiv-02 {
     height: auto;
     display: flex;
@@ -136,7 +138,8 @@
     height: auto;
     padding: 0px 0px 10px 0px;
 }
-.PSDiv-02-01{
+
+.PSDiv-02-01 {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -144,16 +147,30 @@
     height: auto;
     padding: 5px;
 }
-.PSDiv-02-01 button{
+
+.PSDiv-02-01 button {
     margin: 10px;
 }
-.PSDiv-03
-{
-    border: 1px solid red;
+
+.PSDiv-03 {
+    border: 2px solid lightgray;
+    border-radius: 4px;
     height: auto;
+    padding: 6px 20px;
+
 }
-#output
-{
-    border: 1px solid blue;
-    height: 10rem;
+
+#output {
+    padding: 5px 16px;
+    height: 22rem;
+    overflow: overlay;
+}
+
+#output table tr td {
+    text-align: center;
+    padding: 8px 4px;
+}
+
+#output table tr {
+    border-bottom: 1px solid lightgray;
 }
