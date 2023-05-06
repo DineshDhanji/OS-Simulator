@@ -1,3 +1,17 @@
+/* Nav bar CSS Starts */
+.nav-bar-section-02 {
+    justify-content: flex-end;
+    align-items: center;
+}
+
+@media (max-width: 991px) {
+    .nav-bar-section-02 {
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+}
+
 /* Scroll bar CSS Starts */
 .card-text::-webkit-scrollbar {
     width: 3px;
