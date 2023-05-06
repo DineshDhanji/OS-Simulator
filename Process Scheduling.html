@@ -57,23 +57,58 @@
         function CanAlgoBEAppiled() {
             return document.getElementsByClassName("Terminal-Process-Details")[0].getElementsByClassName('list-group')[0].children.length;
         }
-        function Output(){
+        function Output(no, pid, arrival, burst, priority, ct, tat, wt){
             var a = document.getElementById("output").getElementsByTagName('table')[0];
             var temp = document.createElement('tr');
-            for (let i = 0; i < 1; i++)
-            {
+            
             var newContent = `
-                    <td class="col-1"><span style="color: #0d6efd;">P</span>${i}</td>
-                    <td class="col-1">0</td>
-                    <td class="col-2">0</td>
-                    <td class="col-2">10</td>
-                    <td class="col-1">10</td>
-                    <td class="col-2">10</td>
-                    <td class="col-1">0</td>
-                    <td class="col-2">0</td>
+                    <td class="col-1"><span style="color: #0d6efd;">P</span>${no}</td>
+                    <td class="col-1">${pid}</td>
+                    <td class="col-2">${arrival}</td>
+                    <td class="col-2">${burst}</td>
+                    <td class="col-1">${priority}</td>
+                    <td class="col-2">${ct}</td>
+                    <td class="col-1">${tat}</td>
+                    <td class="col-2">${wt}</td>
             `;
             temp.innerHTML = newContent;
-            a.append(temp)};
+            a.append(temp)
+        };
+        function getDataOfProcess(i){
+            let count = document.getElementsByClassName("Terminal-Process-Details")[0].getElementsByClassName('list-group')[0].children
+            let a = [];
+            for (let j = 0; j < 3; j++){
+                let t = document.getElementsByClassName("Terminal-Process-Details")[0].getElementsByClassName('list-group')[0].children[i].children[j].innerText
+                a[j] = t;
+            }
+            return a;    
+        }
+        function ClearOutput(){
+            var c = document.getElementById('output')
+                    var d = document.createElement('div');
+                    var newContentForOutput = `
+                    <table class="container">
+                        <tr>
+                            <td class="col-1 fw-medium">PNo.</td>
+                            <td class="col-1 fw-medium">PID</td>
+                            <td class="col-2 fw-medium">Arrival Time</td>
+                            <td class="col-2 fw-medium">Burst Time</td>
+                            <td class="col-1 fw-medium">Priority</td>
+                            <td class="col-2 fw-medium">Completion Time</td>
+                            <td class="col-1 fw-medium">TAT</td>
+                            <td class="col-2 fw-medium">Wait Time</td>
+                        </tr>
+                    </table>
+                    `
+                    d.setAttribute("id","output");
+                    d.innerHTML = newContentForOutput;
+                    c.parentElement.replaceChild(d, c);
+        }
+        function PrintAVGWaitingTime(AvgWT){
+            document.getElementById('AvgWT').innerHTML = "Average Waiting Time: <span style=\"color: #0d6efd;\">"+AvgWT+"</span> ";
+        }
+        function PrintAVGTAT(AvgTAT){
+            document.getElementById('AvgTAT').innerHTML = "Average Waiting Time: <span style=\"color: #0d6efd;\">"+AvgTAT+"</span> ";
         }
     </script>
 </head>
@@ -208,25 +243,7 @@
                         b.classList.add('Terminal-Process-Details')
                         a.parentNode.replaceChild(b, a);
                     }
-                    var c = document.getElementById('output')
-                    var d = document.createElement('div');
-                    var newContentForOutput = `
-                    <table class="container">
-                        <tr>
-                            <td class="col-1 fw-medium">PNo.</td>
-                            <td class="col-1 fw-medium">PID</td>
-                            <td class="col-2 fw-medium">Arrival Time</td>
-                            <td class="col-2 fw-medium">Burst Time</td>
-                            <td class="col-1 fw-medium">Priority</td>
-                            <td class="col-2 fw-medium">Completion Time</td>
-                            <td class="col-1 fw-medium">TAT</td>
-                            <td class="col-2 fw-medium">Wait Time</td>
-                        </tr>
-                    </table>
-                    `
-                    d.setAttribute("id","output");
-                    d.innerHTML = newContentForOutput;
-                    c.parentElement.replaceChild(d, c);
+                    ClearOutput()
                 }
 
             </script>
@@ -305,13 +322,21 @@
                 </div>
             </div>
             <py-script>
-                from js import alert, GetAlgorithm, CanAlgoBEAppiled, Output
+                from js import alert, GetAlgorithm, CanAlgoBEAppiled, Output, getDataOfProcess, PrintAVGWaitingTime, PrintAVGTAT, ClearOutput
+                class Process:
+                    def __init__(self, pid, arrival_time, burst_time, priority):
+                        self.pid = pid
+                        self.arrival_time = arrival_time
+                        self.burst_time = burst_time
+                        self.priority = priority
+
                 def Execute():
                     numberOfProcess = CanAlgoBEAppiled()
                     if numberOfProcess > 1:
                         algo = GetAlgorithm()
                         if algo == "FCFS":
-                            Output()
+                            ClearOutput()
+                            FCFS()
                         elif algo == "SJF": 
                             Output()
                         elif algo == "Priority": 
@@ -320,6 +345,48 @@
                             Output()
                     else:
                         alert("No process in the data.")
+                def FCFS():
+                    processes = []
+                    count  = CanAlgoBEAppiled()
+                    a = []
+                    for i in range(1, count, 1):
+                        a = getDataOfProcess(i)
+                        processes.append(Process(int(a[0]), int(a[1]), int(a[2]), 0))
+                    
+                    cur_time = 0
+                    current_time = []
+                    completion_time = []
+                    wait_time = 0
+                    waiting_time = []
+                    ta_time = 0
+                    turnaround_time = []
+                    total_turnaround_time = 0
+                    total_waiting_time = 0
+                    j = 0
+                    # Loop through the processes and calculate their waiting time
+                    for process in processes:
+                        # Calculate the waiting time for the current process
+                        cur_time = max(cur_time, process.arrival_time)
+                        current_time.append(cur_time)
+                        compl_time = cur_time + process.burst_time
+                        completion_time.append(compl_time)
+                        ta_time = compl_time - process.arrival_time
+                        turnaround_time.append(ta_time)
+                        wait_time = ta_time - process.burst_time
+                        waiting_time.append(wait_time)
+
+                        # Update the current time
+                        cur_time += process.burst_time
+                        total_turnaround_time += ta_time
+                        total_waiting_time += wait_time
+                        Output(j, processes[j].pid, processes[j].arrival_time, processes[j].burst_time, processes[j].priority, compl_time, ta_time, wait_time)
+                        j+=1
+
+                    # Calculate the average waiting time
+                    avg_waiting_time = total_waiting_time / len(processes)
+                    avg_turnaround_time = total_turnaround_time / len(processes)
+                    PrintAVGWaitingTime(avg_waiting_time)
+                    PrintAVGTAT(avg_turnaround_time)
             </py-script>
         </div>
     </div>
@@ -337,17 +404,13 @@
                     <td class="col-1 fw-medium">TAT</td>
                     <td class="col-2 fw-medium">Wait Time</td>
                 </tr>
-                <tr>
-                    <td class="col-1"><span style="color: #0d6efd;">P</span>0</td>
-                    <td class="col-1">0</td>
-                    <td class="col-2">0</td>
-                    <td class="col-2">10</td>
-                    <td class="col-1">10</td>
-                    <td class="col-2">10</td>
-                    <td class="col-1">0</td>
-                    <td class="col-2">0</td>
-                </tr>
             </table>
+        </div>
+        <div id="AvgWT">
+            Average Waiting Time: <span style="color: #0d6efd;">0</span> 
+        </div>
+        <div id="AvgTAT">
+            Average Turn Around Time: <span style="color: #0d6efd;">0</span> 
         </div>
     </div>
 </body>

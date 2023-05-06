@@ -145,7 +145,7 @@
 }
 
 .Terminal-Process-Details {
-    height: 20rem;
+    height: 18rem;
     overflow: overlay;
     padding: 0px 10px;
 }
@@ -176,4 +176,11 @@
 
 #output table tr {
     border-bottom: 1px solid lightgray;
+}
+
+#AvgWT, #AvgTAT {
+    height: 3rem;
+    padding: 10px 10px 0px 10px;
+    margin: 5px 0px;
+    font-weight: 400;
 }
