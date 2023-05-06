@@ -15,14 +15,98 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
     <!-- CSS -->
     <link rel="stylesheet" href="./CSS/Memory Management.css">
+    <!-- PyScript -->
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+
+    <!-- MyJavaScript -->
+    <script>
+        let ProcessNumber = 0
+       function FillMemory(s, e)
+       {
+            let a = document.getElementsByClassName("MainMemory-Section")
+            for (let i = s; i < e+1; i++)
+            {
+                a[i].classList.add("Used");
+            }
+       }
+       function UpdateOutput(DivInput, status, algoNumber)
+       {
+            let allocated = ''
+            let algo = ''
+            var a = document.getElementsByClassName("output")[0].getElementsByClassName('list-group')[0];
+            if (status == 1){
+                allocated = "Allocated"
+            }
+            else{
+                allocated = "Not Allocated"
+            }
+            if (algoNumber == 1)
+            {
+                algo = "First Fit"
+            }
+            else if(algoNumber == 2)
+            {
+                algo = "Best Fit"
+            }
+            else if(algoNumber == 3)
+            {
+                algo = "Worst Fit"
+            }
+
+            // creating and updating elements
+            var temp = document.createElement('div');
+            var newContent = `
+                <li class="list-group-item">
+                        <div class="col-3">${ProcessNumber}</div>
+                        <div class="col-3">${DivInput}</div>
+                        <div class="col-4">${allocated}</div>
+                        <div class="col-2">${algo}</div>
+                </li>
+            `
+            temp.innerHTML = newContent
+            a.append(temp)
+
+            ProcessNumber++
+       }
+       function TerminalOutput(DivInput, status)
+       {
+            var a = document.getElementsByClassName("terminal")[0].getElementsByClassName('list-group')[0];
+           
+            // creating and updating elements
+            var temp = document.createElement('div');
+            if (status == 1){
+                var newContent = `
+                    <li class="list-group-item">
+                        <div class="col-12">
+                           <span style="color: #ffc107">$</span> Process no. ${ProcessNumber-1} has been allocated the total size of ${DivInput} in the main memory.    
+                        </div
+                    </li>
+                    `
+                    temp.innerHTML = newContent
+                    a.append(temp)
+            }
+            else{
+               var newContent = `
+                    <li class="list-group-item">
+                        <div class="col-12">
+                           <span style="color: #ffc107">$</span> This process could not be allocated due to insufficient space in main memory (Process Size = ${DivInput}).     
+                        </div
+                    </li>
+                    `
+                    temp.innerHTML = newContent
+                    a.append(temp)
+                }
+
+            
+       }
+    </script>
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="./Main.html">
-                <div>OS Simulator</div>
-            </a>
+            <a class="navbar-brand" href="./Main.html">OS Simulator</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -33,30 +117,334 @@
                         <a class="nav-link" href="./Process Scheduling.html">Process Scheduling</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./Disk Management.html">Disk Management</a>
+                        <a class="nav-link" href="./Virtual Memory.html">Virtual Memory</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="./Memory Management.html">Memory Management</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Our Team</a>
+                        <a class="nav-link" href="./Our Team.html">Our Team</a>
                     </li>
-
                 </ul>
             </div>
         </div>
     </nav>
     <div class="OS-Simulator-Heading container d-flex justify-content-center">
-        <div class="row display-3">Memory Management</div>
+        <div class="row display-4">Memory Management</div>
     </div>
-    <div class="container MM-Div-01">
-        <div class="lead col-10" style="margin: 20px;">Select the respective option</div>
-        <div class="col-12">
-            <a href="./Pages/MM01.html"><button type="button" class="btn btn-lg btn-warning"
-                    style="margin: 20px;">Memory Allocation Techniques</button></a>
-            <a href="./Pages/MM02.html" type="button" class="btn btn-lg btn-warning" style="margin: 20px;">Paging
-                Algorithms</button></a>
+    <div class="MM01Div-01 container col-12">
+
+        <div class="MM01Div-01-01 col-12 col-lg-6">
+            <div class="data-input-div col-11">
+                <div class="lead fs-4" style="padding:10px 7px;">Data Input Section</div>
+                <div class="data-input">
+                    <div class="data-input-01">
+                        <label for="Process Size">Process Size</label>
+                        <input type="number" name="ProcessSize" id="ProcessSize" class="col-7"
+                            placeholder="Enter the process size in MB" min="1" max="101" step="1">
+                    </div>
+                    <div class="data-input-02">
+                        <label for="Technique" style="margin: 15px 0px;">Select the respective allocation
+                            technique:</label>
+                        <div class="data-input-02-btn">
+                            <button type="button" py-click="ApplyFirstFit()" class="btn btn-warning col-5">First Fit</button>
+                            <button type="button" py-click="ApplyBestFit()" class="btn btn-warning col-5">Best Fit</button>
+                            <button type="button" py-click="ApplyWorstFit()" class="btn btn-warning col-5">Worst Fit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="data-input-info col-11">
+                <div class="lead fs-4" style="padding:10px 7px;">Instructions</div>
+                <ul class="list-group">
+                    <li class="list-group-item">Enter the size of the process in the input field.</li>
+                    <li class="list-group-item">Then click on any one of the techniques.</li>
+                    <li class="list-group-item">Check the details of process given below.</li>
+                    <li class="list-group-item">The size of the process must be positive, non-zero, and multiple of 1.</li>
+                    <li class="list-group-item">The total main memory available for the demonstration is 101.</li>
+                    <li class="list-group-item">Black blocks are already occupied by OS.</li>
+                </ul>
+            </div>
         </div>
+
+        <div class="MM01Div-01-02 col-12 col-lg-5">
+            <div class="MainMemory col-3">
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section Occupied"></div> <!-- 12 to 18-->
+                <div class="MainMemory-Section Occupied"></div>
+                <div class="MainMemory-Section Occupied"></div>
+                <div class="MainMemory-Section Occupied"></div>
+                <div class="MainMemory-Section Occupied"></div>
+                <div class="MainMemory-Section Occupied"></div>
+                <div class="MainMemory-Section Occupied"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section Occupied"></div> <!-- 53 to 58-->
+                <div class="MainMemory-Section Occupied"></div>
+                <div class="MainMemory-Section Occupied"></div>
+                <div class="MainMemory-Section Occupied"></div>
+                <div class="MainMemory-Section Occupied"></div>
+                <div class="MainMemory-Section Occupied"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section Occupied"></div> <!--93 to 95 -->
+                <div class="MainMemory-Section Occupied"></div>
+                <div class="MainMemory-Section Occupied"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+                <div class="MainMemory-Section"></div>
+            </div>
+            <div class="fs-6" style="margin-left: 10px;">Main Memory <br>Total Size: 101MB</div>
+        </div>
+    <py-script>
+        from js import FillMemory, UpdateOutput, TerminalOutput
+
+        # Initializing array
+        MM = [0 for i in range(101)]
+        for i in range(12, 19, 1):
+            MM[i] = 1
+        for i in range(53, 59, 1):
+            MM[i] = 1
+        for i in range(93, 96, 1):
+            MM[i] = 1
+
+
+        def ApplyBestFit():
+            MyDiv = Element("ProcessSize");
+            
+            flag = 1
+            start = 0
+            end = 0
+            preStart=[]
+            preEnd=[]
+
+            if MyDiv.value != '':
+                if int(MyDiv.value) > 0 and int(MyDiv.value) < 101:
+                    i = 0   
+                    j = 0   
+                    while (i < 101 and flag):
+                        if MM[i] == 0:
+                            j=i
+                            while(j < 101):
+                                if MM[j] == 1:
+                                    preStart.append(i)
+                                    preEnd.append(j-1)
+                                    i = j
+                                    break
+                                if j == 100:
+                                    preStart.append(i)
+                                    preEnd.append(j)
+                                    flag=0
+                                    break
+                                j+=1
+                        i+=1
+                    
+                    if len(preStart) != 0:
+                        flag = 0 # Now it being used as whether we can allocated the memory or not.
+                        end = 2000
+                        start = 1000
+                    
+                        for i in range(len(preStart)):
+                            if  preEnd[i] - preStart[i] + 1 <= end-start+1 and preEnd[i] - preStart[i] + 1 >= int(MyDiv.value): 
+                                start = preStart[i]
+                                end = preEnd[i]
+                                flag = 1
+                        if flag == 1:
+                            FillMemory(start, start+int(MyDiv.value)-1)
+                            for j in range(start, start+int(MyDiv.value), 1):
+                                MM[j] = 1
+                            UpdateOutput(int(MyDiv.value), 1, 2)
+                            TerminalOutput(int(MyDiv.value), 1)
+                else:
+                    TerminalOutput(int(MyDiv.value), 0)
+        
+        def ApplyWorstFit():
+            MyDiv = Element("ProcessSize");
+            
+            flag = 1
+            start = 0
+            end = 0
+            preStart=[]
+            preEnd=[]
+
+            if MyDiv.value != '':
+                if int(MyDiv.value) > 0 and int(MyDiv.value) < 101:
+                    i = 0   
+                    j = 0   
+                    while (i < 101 and flag):
+                        if MM[i] == 0:
+                            j=i
+                            while(j < 101):
+                                if MM[j] == 1:
+                                    preStart.append(i)
+                                    preEnd.append(j-1)
+                                    i = j
+                                    break
+                                if j == 100:
+                                    preStart.append(i)
+                                    preEnd.append(j)
+                                    flag=0
+                                    break
+                                j+=1
+                        i+=1
+                    
+                    if len(preStart) != 0:
+                        flag = 0 # Now it being used as whether we can allocated the memory or not.
+                        end = -1
+                        start = 0
+                    
+                        for i in range(len(preStart)):
+                            if  preEnd[i] - preStart[i] + 1 >= end-start+1 and preEnd[i] - preStart[i] + 1 >= int(MyDiv.value): 
+                                start = preStart[i]
+                                end = preEnd[i]
+                                flag = 1
+                        if flag == 1:
+                            FillMemory(start, start+int(MyDiv.value)-1)  # JavaScript Function
+                            for j in range(start, start+int(MyDiv.value), 1):
+                                MM[j] = 1
+                            UpdateOutput(int(MyDiv.value), 1, 3)
+                            TerminalOutput(int(MyDiv.value), 1)
+                else:
+                        TerminalOutput(int(MyDiv.value), 0)
+                
+        def ApplyFirstFit():
+            MyDiv = Element("ProcessSize");
+            
+            flag = 0
+            start = 0
+            end = 0
+
+            if MyDiv.value != '':
+                if int(MyDiv.value) > 0 and int(MyDiv.value) < 101:
+                    MyDivValue = int(MyDiv.value)
+                    for i in range(101):
+                        if MM[i] == 0:
+                            temp = MyDivValue
+                            if i + temp <= 101:
+                                for j in range(i, i + MyDivValue, 1):
+                                    if MM[j] == 0:
+                                        temp=temp-1
+                                        if temp == 0:
+                                            start = i
+                                            end = j
+                                            flag = 1
+                                            break
+                                    else:
+                                        i = j
+                                        break
+                        if flag == 1:
+                            FillMemory(start, end)  # JavaScript Function
+                            UpdateOutput(MyDivValue, 1, 1)
+                            TerminalOutput(MyDiv.value, 1)
+                            for j in range(start, end+1, 1):
+                                MM[j] = 1
+                            break
+                else:
+                    TerminalOutput(MyDiv.value, 0)
+    </py-script>
+    </div>
+    <div class="MM01Div-02 container">
+        
+        <div class="MM01Div-02-01 col-12 col-lg-5">
+            <div class="lead fs-4" style="padding:10px 7px;">Output</div>
+            <div class="output">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <div class="col-3 fw-medium">Process No.</div>
+                        <div class="col-3 fw-medium">Process Size</div>
+                        <div class="col-4 fw-medium">Allocation Status</div>
+                        <div class="col-2 fw-medium">Algorithm</div>
+                    </li>
+                  </ul>
+            </div>
+        </div>
+        
+        <div class="MM01Div-02-02 col-12 col-lg-6">
+            <div class="lead fs-4" style="padding:10px 7px;">Terminal</div>
+            <div class="terminal">
+                <ul class="list-group list-group-flush">
+                    
+                  </ul>
+            </div>
+        </div>
+
     </div>
 </body>
 

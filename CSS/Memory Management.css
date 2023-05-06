@@ -25,7 +25,173 @@
     border: 1px solid red;
     height: 80vh;
 }
-.OS-Simulator-Heading
-{
+
+.OS-Simulator-Heading {
     padding: 30px 0;
+}
+
+/* Scroll Bar CSS Starts */
+.MM01Div-02-01::-webkit-scrollbar,
+.MM01Div-02-02::-webkit-scrollbar {
+    width: 3px;
+}
+
+.MM01Div-02-01::-webkit-scrollbar-track,
+.MM01Div-02-02::-webkit-scrollbar-track {
+    border-radius: 6px;
+    border: 1px solid lightgray;
+}
+
+.MM01Div-02-01::-webkit-scrollbar-thumb,
+.MM01Div-02-02::-webkit-scrollbar-thumb {
+    background: #ffc107;
+    border-radius: 3px;
+}
+
+.MM01Div-02-01::-webkit-scrollbar-thumb:hover,
+.MM01Div-02-02::-webkit-scrollbar-thumb:hover {
+    background: darkgray;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 6px;
+    border: 1px solid lightgray;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #ffc107;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: darkgray;
+}
+
+/* Scroll Bar CSS Ends */
+.MM01Div-01 {
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.MM01Div-01-01 {
+    height: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.data-input-div {
+    border: 1px solid black;
+    height: 24rem;
+    padding: 10px;
+    border: 2px solid #ffc107;
+    border-radius: 4px;
+    margin: 10px 0px;
+}
+
+.data-input-01 {
+    margin: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#ProcessSize {
+    height: 2.4rem;
+    border-radius: 4px;
+    padding-left: 7px;
+    width: 250px;
+}
+
+.data-input-02 {
+    margin: 30px 20px;
+}
+
+.data-input-02-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.data-input-02-btn button {
+    margin: 10px 0px;
+}
+
+.data-input-info {
+    border: 2px solid lightgray;
+    height: auto;
+    padding: 10px;
+    border-radius: 4px;
+    margin: 10px 0px;
+}
+
+.MM01Div-01-02 {
+    height: 40rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.MainMemory {
+    border: 1px solid black;
+    height: 38rem;
+}
+
+.MainMemory-Section {
+    border: 1px solid white;
+    background-color: white;
+    height: 6px;
+}
+
+.Used {
+    border: 1px solid black;
+    background-color: #ffc107;
+    height: 6px;
+}
+
+.Occupied {
+    border: 1px solid black;
+    background-color: black;
+    height: 6px;
+}
+
+.MM01Div-02 {
+    border: 1px solid lightgrey;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    height: auto;
+    width: 78rem;
+    margin: 30px auto;
+}
+
+.MM01Div-02-01 {
+    height: 25rem;
+    overflow: auto;
+    margin: 10px 0px;
+}
+
+.MM01Div-02-02 {
+    height: 25rem;
+    overflow: auto;
+    margin: 10px 0px;
+}
+
+.output,
+.terminal {
+    border: 1px solid lightgray;
+    border-radius: 4px;
+    height: auto;
+    padding: 0px 6px;
+}
+
+.list-group-item {
+    display: flex;
 }
