@@ -85,24 +85,26 @@
         }
         function ClearOutput(){
             var c = document.getElementById('output')
-                    var d = document.createElement('div');
-                    var newContentForOutput = `
-                    <table class="container">
-                        <tr>
-                            <td class="col-1 fw-medium">PNo.</td>
-                            <td class="col-1 fw-medium">PID</td>
-                            <td class="col-2 fw-medium">Arrival Time</td>
-                            <td class="col-2 fw-medium">Burst Time</td>
-                            <td class="col-1 fw-medium">Priority</td>
-                            <td class="col-2 fw-medium">Completion Time</td>
-                            <td class="col-1 fw-medium">TAT</td>
-                            <td class="col-2 fw-medium">Wait Time</td>
-                        </tr>
-                    </table>
-                    `
-                    d.setAttribute("id","output");
-                    d.innerHTML = newContentForOutput;
-                    c.parentElement.replaceChild(d, c);
+            var d = document.createElement('div');
+            var newContentForOutput = `
+            <table class="container">
+                <tr>
+                    <td class="col-1 fw-medium">PNo.</td>
+                    <td class="col-1 fw-medium">PID</td>
+                    <td class="col-2 fw-medium">Arrival Time</td>
+                    <td class="col-2 fw-medium">Burst Time</td>
+                    <td class="col-1 fw-medium">Priority</td>
+                    <td class="col-2 fw-medium">Completion Time</td>
+                    <td class="col-1 fw-medium">TAT</td>
+                    <td class="col-2 fw-medium">Wait Time</td>
+                </tr>
+            </table>
+            `
+            d.setAttribute("id","output");
+            d.innerHTML = newContentForOutput;
+            c.parentElement.replaceChild(d, c);
+            PrintAVGWaitingTime(0)
+            PrintAVGTAT(0)
         }
         function PrintAVGWaitingTime(AvgWT){
             document.getElementById('AvgWT').innerHTML = "Average Waiting Time: <span style=\"color: #0d6efd;\">"+AvgWT+"</span> ";
@@ -150,7 +152,8 @@
         <div class="col-lg-4 col-md-6 col-10 Algorithm">
             <select class="form-select form-select-lg" aria-label=".form-select-lg example">
                 <option selected value="FCFS">FCFS Algorithm</option>
-                <option value="SJF">SJF Algorithm</option>
+                <option value="SJF Pre-emptive">SJF Algorithm (Pre-emptive)</option>
+                <option value="SJF Non Pre-emptive">SJF Algorithm (Non Pre-emptive)</option>
                 <option value="Priority">Priority Algorithm</option>
                 <option value="Round Robin">Round Robin Algorithm</option>
             </select>
@@ -179,7 +182,7 @@
                         b.classList.add('Terminal-Process-Details')
                         a.parentNode.replaceChild(b, a);
                     }
-                    else if (selectedAlgo == "SJF") {
+                    else if (selectedAlgo == "SJF Pre-emptive" || selectedAlgo == "SJF Non Pre-emptive") {
                         document.getElementById("ArrivalTimeDiv").style.display = "flex";
                         document.getElementById("BurstTimeDiv").style.display = "flex";
                         document.getElementById("PriorityTimeDiv").style.display = "none";
@@ -278,7 +281,7 @@
                     from js import GetAlgorithm, alert, AddProcessToTheProcessDetailA, AddProcessToTheProcessDetailB
                     def AddProcess():
                         algo = GetAlgorithm()
-                        if algo == "FCFS" or algo == "SJF":
+                        if algo == "FCFS" or algo == "SJF Non Pre-emptive" or algo == "SJF Pre-emptive":
                             ArrivalTimeDiv = Element("ArrivalTime");
                             BurstTimeDiv = Element("BurstTime");
                             if ArrivalTimeDiv.value == '' or BurstTimeDiv.value == '':
@@ -329,6 +332,7 @@
                         self.arrival_time = arrival_time
                         self.burst_time = burst_time
                         self.priority = priority
+                        self.remaining_time = burst_time
 
                 def Execute():
                     numberOfProcess = CanAlgoBEAppiled()
@@ -337,8 +341,12 @@
                         if algo == "FCFS":
                             ClearOutput()
                             FCFS()
-                        elif algo == "SJF": 
-                            Output()
+                        elif algo == "SJF Pre-emptive": 
+                            ClearOutput()
+                            SJF_Preemptive()
+                        elif algo == "SJF Non Pre-emptive": 
+                            ClearOutput()
+                            SJF_NonPreemptive()
                         elif algo == "Priority": 
                             Output()
                         elif algo == "Round Robin": 
@@ -346,6 +354,7 @@
                     else:
                         alert("No process in the data.")
                 def FCFS():
+                    # Getting data of processes
                     processes = []
                     count  = CanAlgoBEAppiled()
                     a = []
@@ -387,6 +396,129 @@
                     avg_turnaround_time = total_turnaround_time / len(processes)
                     PrintAVGWaitingTime(avg_waiting_time)
                     PrintAVGTAT(avg_turnaround_time)
+                
+                def SJF_Preemptive():
+                    # Getting data of processes
+                    processes = []
+                    count  = CanAlgoBEAppiled()
+                    a = []
+                    for i in range(1, count, 1):
+                        a = getDataOfProcess(i)
+                        processes.append(Process(int(a[0]), int(a[1]), int(a[2]), 0))
+
+                    # Sort the processes based on their arrival time
+                    processes = sorted(processes, key=lambda p: p.arrival_time)
+                    n = len(processes)
+                    completed = [False] * n
+                    cur_time = 0
+                    current_time = []
+                    completion_time = []
+                    turnaround_time = []
+                    waiting_time = []
+                    total_turnaround_time = 0
+                    total_waiting_time = 0  
+                    j = 0  
+                    while True:
+                        # Find the process with the shortest remaining time
+                        min_remaining_time = float('inf')
+                        min_index = -1
+                        for i in range(n):
+                            if not completed[i] and processes[i].arrival_time <= cur_time and processes[i].remaining_time < min_remaining_time:
+                                min_remaining_time = processes[i].remaining_time
+                                min_index = i
+                                
+                        if min_index == -1:
+                            # All processes have been executed
+                            break
+
+                        # Execute the process for 1 time unit
+                        process = processes[min_index]
+                        process.remaining_time -= 1
+
+                        # If the process has completed, calculate its completion time, turnaround time, and waiting time
+                        if process.remaining_time == 0:
+                            current_time.append(cur_time)
+                            compl_time = cur_time + 1
+                            completion_time.append(compl_time)
+                            ta_time = compl_time - process.arrival_time
+                            turnaround_time.append(ta_time)
+                            wait_time = ta_time - process.burst_time
+                            waiting_time.append(wait_time)
+                            total_turnaround_time += ta_time
+                            total_waiting_time += wait_time
+                            completed[min_index] = True
+                            Output(j, process.pid, process.arrival_time, process.burst_time, process.priority, compl_time, ta_time, wait_time)
+                            j+=1
+                        # Update the current time
+                        cur_time += 1
+
+                    # Calculate the average waiting time
+                    avg_waiting_time = total_waiting_time / n
+                    avg_turnaround_time = total_turnaround_time / n
+                    PrintAVGWaitingTime(avg_waiting_time)
+                    PrintAVGTAT(avg_turnaround_time)
+                    
+                def SJF_NonPreemptive():
+                    # Getting data of processes
+                    processes = []
+                    count  = CanAlgoBEAppiled()
+                    a = []
+                    for i in range(1, count, 1):
+                        a = getDataOfProcess(i)
+                        processes.append(Process(int(a[0]), int(a[1]), int(a[2]), 0))
+
+                    # Sort the processes based on their burst time
+                    processes = sorted(processes, key=lambda p: p.burst_time)
+                    n = len(processes)
+                    completed = [False] * n
+                    cur_time = 0
+                    current_time = []
+                    completion_time = []
+                    turnaround_time = []
+                    waiting_time = []
+                    total_turnaround_time = 0
+                    total_waiting_time = 0
+                    j = 0
+
+                    while True:
+                        # Find the shortest job that has arrived but has not been executed
+                        min_burst_time = float('inf')
+                        min_index = -1
+                        for i in range(n):
+                            if not completed[i] and processes[i].arrival_time <= cur_time and processes[i].burst_time < min_burst_time:
+                                min_burst_time = processes[i].burst_time
+                                min_index = i
+
+                        if min_index == -1:
+                            # All processes have been executed
+                            break
+
+                        # Execute the shortest job
+                        process = processes[min_index]
+                        current_time.append(cur_time)
+                        compl_time = cur_time + process.burst_time
+                        completion_time.append(compl_time)
+                        ta_time = compl_time - process.arrival_time
+                        turnaround_time.append(ta_time)
+                        wait_time = ta_time - process.burst_time
+                        waiting_time.append(wait_time)
+                        total_turnaround_time += ta_time
+                        total_waiting_time += wait_time
+                        completed[min_index] = True
+                        Output(j, process.pid, process.arrival_time, process.burst_time, process.priority, compl_time, ta_time, wait_time)
+                        j+=1
+                        
+                        # Update the current time
+                        cur_time = compl_time
+
+                    # Calculate the average waiting time
+                    avg_waiting_time = total_waiting_time / n
+                    avg_turnaround_time = total_turnaround_time / n
+                
+                    # Print the average waiting time
+                    PrintAVGWaitingTime(avg_waiting_time)
+                    PrintAVGTAT(avg_turnaround_time)
+                    
             </py-script>
         </div>
     </div>
