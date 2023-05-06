@@ -13,12 +13,13 @@ def FIFO(pages, pagefault, frame_size, page_frame):
             index = pagefault % frame_size
             page_frame.append(page)
             pagefault += 1
+            print(page_frame, "\n")
         elif not page_found and pagefault >= frame_size:
             index = pagefault % frame_size
             page_frame[index] = page
             pagefault += 1
+            print(page_frame, "\n")
         
-        print(page_frame, "\n")
         
     print("Page Faults occured: " , pagefault, "\n\n")
     return
@@ -179,5 +180,5 @@ pagefault = 0
 # frame_size = int(input("Enter number of page frames: "))
 frame_size = 3
 page_frame = []
-FIFO(pages, pagefault, frame_size, page_frame)
+Optimal(pages, pagefault, frame_size, page_frame)
 # SecondChance(pages , pagefault , frame_size , page_frame) Test any function here no need to change the parameters

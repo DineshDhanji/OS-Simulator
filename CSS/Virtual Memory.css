@@ -34,3 +34,150 @@
 }
 
 /* Scroll Bar CSS Ends */
+.OS-Simulator-Heading {
+    padding: 30px 0;
+}
+
+.VMDiv-01 {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    align-items: center;
+    height: auto;
+    padding: 10px;
+    margin: 10px 0px 0px 0px;
+}
+
+.VMDiv-01-01 {
+    border: 2px solid #198754;
+    border-radius: 4px;
+    height: max-content;
+    margin: 10px;
+    padding: 10px;
+}
+
+.VMDiv-01-01-01 {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+    border: 1px solid lightgray;
+    border-radius: 4px;
+    height: auto;
+}
+
+.Input-Field-Div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    margin: 20px 0px 0px 0px;
+}
+
+#PagesDiv {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 10px 0px;
+}
+
+#PagesDiv label {
+    padding: 6px 0px;
+}
+
+#Pages {
+    height: 2.3rem;
+    padding: 0px 10px;
+    border-radius: 4px;
+    outline-color: #198754;
+    border: 1px solid lightgray;
+}
+
+#Button0,
+#Button1,
+#Button2,
+#Button3,
+#Button4,
+#Button5,
+#Button6,
+#Button7,
+#Button8,
+#Button9 {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 19px;
+    padding: 5px;
+    margin: 8px;
+}
+
+
+
+.VMDiv-01-02 {
+    border: 2px solid lightgray;
+    border-radius: 4px;
+    height: auto;
+    margin: 10px;
+}
+
+#VMDiv-01-02-01 {
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 13px;
+    margin: 13px;
+    max-height: 10rem;
+    overflow: overlay;
+}
+
+.Sequence-data {
+    height: 35px;
+    width: 35px;
+    font-size: 18px;
+    padding: 4px 4px;
+    margin: 3px 3px;
+    text-align: center;
+    border-bottom: 1px solid lightgray;
+}
+
+.VMDiv-01-02-02 {
+    height: auto;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 13px;
+}
+
+.VMDiv-02 {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+    height: auto;
+    padding: 0px 0px 10px 0px;
+    margin: 12px 0px;
+}
+
+.VMDiv-02-01 {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+    height: auto;
+    padding: 5px;
+}
+
+.VMDiv-02-01 button {
+    margin: 10px;
+}
+
+.VMDiv-03 {
+    border: 2px solid lightgray;
+    border-radius: 4px;
+    height: auto;
+    padding: 6px 20px;
+}

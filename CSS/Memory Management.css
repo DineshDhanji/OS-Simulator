@@ -107,6 +107,8 @@
     border-radius: 4px;
     padding-left: 7px;
     width: 250px;
+    outline-color: #ffc107;
+    border: 1px solid lightgray;
 }
 
 .data-input-02 {
