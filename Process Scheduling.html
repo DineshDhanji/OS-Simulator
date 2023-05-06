@@ -15,6 +15,67 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
     <!-- CSS -->
     <link rel="stylesheet" href="./CSS/Process Scheduling.css">
+    <!-- PyScript -->
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+    <!-- JavaScript -->
+    <script>
+        let PID = 0
+
+        function GetAlgorithm()
+        {
+            return document.getElementsByClassName("Algorithm")[0].getElementsByTagName("select")[0].value;
+        }
+        function AddProcessToTheProcessDetailB(ArrivalTime, BurstTime, PriorityTime) {
+            var a = document.getElementsByClassName("Terminal-Process-Details")[0].getElementsByClassName('list-group')[0];
+            var temp = document.createElement('li');
+            temp.classList.add("list-group-item");
+            var newContent = `
+                            <div class="col-3">${PID}</div>
+                            <div class="col-3">${ArrivalTime}</div>
+                            <div class="col-3">${BurstTime}</div>
+                            <div class="col-3">${PriorityTime}</div>
+            `
+            temp.innerHTML = newContent
+            a.append(temp)
+            PID++
+        }
+        function AddProcessToTheProcessDetailA(ArrivalTime, BurstTime) {
+            var a = document.getElementsByClassName("Terminal-Process-Details")[0].getElementsByClassName('list-group')[0];
+            var temp = document.createElement('li');
+            temp.classList.add("list-group-item");
+            var newContent = `
+                            <div class="col-4">${PID}</div>
+                            <div class="col-4">${ArrivalTime}</div>
+                            <div class="col-4">${BurstTime}</div>
+            `
+            temp.innerHTML = newContent
+            a.append(temp)
+            PID++
+        }
+
+        function CanAlgoBEAppiled() {
+            return document.getElementsByClassName("Terminal-Process-Details")[0].getElementsByClassName('list-group')[0].children.length;
+        }
+        function Output(){
+            var a = document.getElementById("output").getElementsByTagName('table')[0];
+            var temp = document.createElement('tr');
+            for (let i = 0; i < 1; i++)
+            {
+            var newContent = `
+                    <td class="col-1"><span style="color: #0d6efd;">P</span>${i}</td>
+                    <td class="col-1">0</td>
+                    <td class="col-2">0</td>
+                    <td class="col-2">10</td>
+                    <td class="col-1">10</td>
+                    <td class="col-2">10</td>
+                    <td class="col-1">0</td>
+                    <td class="col-2">0</td>
+            `;
+            temp.innerHTML = newContent;
+            a.append(temp)};
+        }
+    </script>
 </head>
 
 <body>
@@ -48,57 +109,199 @@
         <div class="row display-4">Process Scheduling</div>
     </div>
     <div class="PSDiv-01 container-fluid">
-        <div class="PSDiv-01-01 col-10 col-lg-5">
-            <div class="Input-Field ">
+        <div class="lead fs-4 text-center col-lg-6 col-12" style="margin: 10px 5px">Select the respective algorithm for
+            the
+            demonstration</div>
+        <div class="col-lg-4 col-md-6 col-10 Algorithm">
+            <select class="form-select form-select-lg" aria-label=".form-select-lg example">
+                <option selected value="FCFS">FCFS Algorithm</option>
+                <option value="SJF">SJF Algorithm</option>
+                <option value="Priority">Priority Algorithm</option>
+                <option value="Round Robin">Round Robin Algorithm</option>
+            </select>
+            <script>
+                document.getElementsByClassName("Algorithm")[0].getElementsByTagName("select")[0].onchange = (event) => {
+                    var selectedAlgo = event.target.value;
+                    if (selectedAlgo == "FCFS") {
+                        document.getElementById("ArrivalTimeDiv").style.display = "flex";
+                        document.getElementById("BurstTimeDiv").style.display = "flex";
+                        document.getElementById("PriorityTimeDiv").style.display = "none";
+                        document.getElementById("TimeQuantumDiv").style.display = "none";
+
+                        // Replacing Terminal contents
+                        var a = document.getElementsByClassName("Terminal-Process-Details")[0];
+                        var b = document.createElement('div');
+                        var newContent = `
+                            <ul class="list-group list-group-flush" style="padding: 0px 8px;">
+                                <li class="list-group-item">
+                                    <div class="col-4 fw-medium">PID</div>
+                                    <div class="col-4 fw-medium">Arrival Time</div>
+                                    <div class="col-4 fw-medium">Burst Time</div>
+                                </li>
+                            </ul>
+                        `
+                        b.innerHTML = newContent;
+                        b.classList.add('Terminal-Process-Details')
+                        a.parentNode.replaceChild(b, a);
+                    }
+                    else if (selectedAlgo == "SJF") {
+                        document.getElementById("ArrivalTimeDiv").style.display = "flex";
+                        document.getElementById("BurstTimeDiv").style.display = "flex";
+                        document.getElementById("PriorityTimeDiv").style.display = "none";
+                        document.getElementById("TimeQuantumDiv").style.display = "none";
+                        // Replacing Terminal contents
+                        var a = document.getElementsByClassName("Terminal-Process-Details")[0];
+                        var b = document.createElement('div');
+                        var newContent = `
+                            <ul class="list-group list-group-flush" style="padding: 0px 8px;">
+                                <li class="list-group-item">
+                                    <div class="col-4 fw-medium">PID</div>
+                                    <div class="col-4 fw-medium">Arrival Time</div>
+                                    <div class="col-4 fw-medium">Burst Time</div>
+                                </li>
+                            </ul>
+                        `
+                        b.innerHTML = newContent;
+                        b.classList.add('Terminal-Process-Details')
+                        a.parentNode.replaceChild(b, a);
+                    }
+                    else if (selectedAlgo == "Priority") {
+                        document.getElementById("ArrivalTimeDiv").style.display = "flex";
+                        document.getElementById("BurstTimeDiv").style.display = "flex";
+                        document.getElementById("PriorityTimeDiv").style.display = "flex";
+                        document.getElementById("TimeQuantumDiv").style.display = "none";
+                        // Replacing Terminal contents
+                        var a = document.getElementsByClassName("Terminal-Process-Details")[0];
+                        var b = document.createElement('div');
+                        var newContent = `
+                            <ul class="list-group list-group-flush" style="padding: 0px 8px;">
+                                <li class="list-group-item">
+                                    <div class="col-3 fw-medium">PID</div>
+                                    <div class="col-3 fw-medium">Arrival Time</div>
+                                    <div class="col-3 fw-medium">Burst Time</div>
+                                    <div class="col-3 fw-medium">Priority Time</div>
+                                </li>
+                            </ul>
+                        `
+                        b.innerHTML = newContent;
+                        b.classList.add('Terminal-Process-Details')
+                        a.parentNode.replaceChild(b, a);
+                    }
+                    else if (selectedAlgo == "Round Robin") {
+                        document.getElementById("ArrivalTimeDiv").style.display = "flex";
+                        document.getElementById("BurstTimeDiv").style.display = "flex";
+                        document.getElementById("PriorityTimeDiv").style.display = "none";
+                        document.getElementById("TimeQuantumDiv").style.display = "flex";
+                        // Replacing Terminal contents
+                        var a = document.getElementsByClassName("Terminal-Process-Details")[0];
+                        var b = document.createElement('div');
+                        var newContent = `
+                            <ul class="list-group list-group-flush" style="padding: 0px 8px;">
+                                <li class="list-group-item">
+                                    <div class="col-4 fw-medium">PID</div>
+                                    <div class="col-4 fw-medium">Arrival Time</div>
+                                    <div class="col-4 fw-medium">Burst Time</div>
+                                </li>
+                            </ul>
+                        `
+                        b.innerHTML = newContent;
+                        b.classList.add('Terminal-Process-Details')
+                        a.parentNode.replaceChild(b, a);
+                    }
+                }
+
+            </script>
+        </div>
+    </div>
+    <div class="PSDiv-02 container-fluid">
+        <div class="PSDiv-02-01 col-10 col-lg-5">
+            <div class="Input-Field">
                 <div class="lead fs-4 text-center" style="margin: 10px 0px">Enter the following required details of
                     the process</div>
                 <div class="container Input-Field-Div-01">
-                    <div class="ArrivalTimeDiv col-10">
+                    <div class="col-10" id="ArrivalTimeDiv">
                         <label for="ArrivalTime" class="col-5">Arrival Time</label>
-                        <input type="number" class="col-6 ArrivalTime" placeholder="Example: 0">
+                        <input type="number" class="col-6" id="ArrivalTime" placeholder="e.g. 0">
                     </div>
-                    <div class="BurstTimeDiv col-10">
+                    <div class="col-10" id="BurstTimeDiv">
                         <label for="BurstTime" class="col-5">Burst Time</label>
-                        <input type="number" class="col-6 BurstTime" placeholder="Example: 10">
+                        <input type="number" class="col-6" id="BurstTime" placeholder="e.g. 10">
                     </div>
-                    <div class="PriorityTimeDiv col-10">
+                    <div class="col-10" id="PriorityTimeDiv">
                         <label for="PriorityTime" class="col-5">Priority Time</label>
-                        <input type="number" class="col-6 PriorityTime" placeholder="Example: 3">
+                        <input type="number" class="col-6" id="PriorityTime" placeholder="e.g. 3">
                     </div>
-                    <button type="button" class="btn btn-primary Add-Process">Add Process</button>
+                    <div class="col-10" id="TimeQuantumDiv">
+                        <label for="TimeQuantum" class="col-5">Time Quantum</label>
+                        <input type="number" class="col-6" id="TimeQuantum" placeholder="e.g. 1">
+                    </div>
+                    <button type="button" class="btn btn-primary Add-Process" py-click="AddProcess()">Add
+                        Process</button>
                 </div>
+                <py-script>
+                    from js import GetAlgorithm, alert, AddProcessToTheProcessDetailA, AddProcessToTheProcessDetailB
+                    def AddProcess():
+                        algo = GetAlgorithm()
+                        if algo == "FCFS" or algo == "SJF":
+                            ArrivalTimeDiv = Element("ArrivalTime");
+                            BurstTimeDiv = Element("BurstTime");
+                            if ArrivalTimeDiv.value == '' or BurstTimeDiv.value == '':
+                                alert("Kindly enter all of the required data fields.")
+                            else:
+                                if int(ArrivalTimeDiv.value) < 0 or int(BurstTimeDiv.value) < 0:
+                                    alert("All values must be positive.")
+                                elif (int(BurstTimeDiv.value) == 0 ):
+                                    alert("Burst time can not be zero.")
+                                else:
+                                    AddProcessToTheProcessDetailA(int(ArrivalTimeDiv.value), int(BurstTimeDiv.value))
+                        elif algo == "Priority":
+                            ArrivalTimeDiv = Element("ArrivalTime");
+                            BurstTimeDiv = Element("BurstTime");
+                            PriorityTimeDiv = Element("PriorityTime");
+                            if ArrivalTimeDiv.value == '' or BurstTimeDiv.value == '' or PriorityTimeDiv.value == '':
+                                alert("Kindly enter all of the required data fields.")
+                            else:
+                                if int(ArrivalTimeDiv.value) < 0 or int(BurstTimeDiv.value) < 0 or int(PriorityTimeDiv.value) < 0:
+                                    alert("All values must be positive.")
+                                elif (int(BurstTimeDiv.value) == 0 ):
+                                    alert("Burst time can not be zero.")
+                                else:
+                                    AddProcessToTheProcessDetailB(int(ArrivalTimeDiv.value), int(BurstTimeDiv.value), int(PriorityTimeDiv.value))
+                </py-script>
             </div>
         </div>
-        <div class="PSDiv-01-02 col-10 col-lg-6">
+        <div class="PSDiv-02-02 col-10 col-lg-6">
             <div class="Terminal">
-                <div class="lead fs-4" style="padding:10px 11px;">Processes Details</div>
+                <div class="lead fs-4" style="display: flex; justify-content: space-between; align-items: center; padding:10px 11px;">Processes Details 
+                    <button type="button" class="btn btn-primary Add-Process" py-click="Execute()">Execute</button>
+                </div>
                 <div class="Terminal-Process-Details">
                     <ul class="list-group list-group-flush" style="padding: 0px 8px;">
                         <li class="list-group-item">
-                            <div class="col-3 fw-medium">PID</div>
-                            <div class="col-3 fw-medium">Arrival Time</div>
-                            <div class="col-3 fw-medium">Burst Time</div>
-                            <div class="col-3 fw-medium">Priority</div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="col-3">0</div>
-                            <div class="col-3">0</div>
-                            <div class="col-3">10</div>
-                            <div class="col-3">3</div>
+                            <div class="col-4 fw-medium">PID</div>
+                            <div class="col-4 fw-medium">Arrival Time</div>
+                            <div class="col-4 fw-medium">Burst Time</div>
                         </li>
                     </ul>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="PSDiv-02 container-fluid">
-        <div class="lead fs-4 text-center" style="margin: 10px 5px">Select the respective algorithm for the
-            demonstration</div>
-        <div class="PSDiv-02-01">
-            <button type="button" class="btn btn-primary">FCFS Algorithm</button>
-            <button type="button" class="btn btn-primary">SJF Algorithm</button>
-            <button type="button" class="btn btn-primary">Priority Algorithm</button>
-            <button type="button" class="btn btn-primary">Round Robin Algorithm</button>
+            <py-script>
+                from js import alert, GetAlgorithm, CanAlgoBEAppiled, Output
+                def Execute():
+                    numberOfProcess = CanAlgoBEAppiled()
+                    if numberOfProcess > 1:
+                        algo = GetAlgorithm()
+                        if algo == "FCFS":
+                            Output()
+                        elif algo == "SJF": 
+                            Output()
+                        elif algo == "Priority": 
+                            Output()
+                        elif algo == "Round Robin": 
+                            Output()
+                    else:
+                        alert("No process in the data.")
+            </py-script>
         </div>
     </div>
     <div class="PSDiv-03 container-fluid offset-1 col-10">
@@ -106,19 +309,21 @@
         <div id="output">
             <table class="container">
                 <tr>
-                    <td class="col-2 fw-medium">Process No.</td>
+                    <td class="col-1 fw-medium">PNo.</td>
                     <td class="col-1 fw-medium">PID</td>
                     <td class="col-2 fw-medium">Arrival Time</td>
                     <td class="col-2 fw-medium">Burst Time</td>
+                    <td class="col-1 fw-medium">Priority</td>
                     <td class="col-2 fw-medium">Completion Time</td>
                     <td class="col-1 fw-medium">TAT</td>
                     <td class="col-2 fw-medium">Wait Time</td>
                 </tr>
                 <tr>
-                    <td class="col-2"><span style="color: #0d6efd;">P</span>0</td>
+                    <td class="col-1"><span style="color: #0d6efd;">P</span>0</td>
                     <td class="col-1">0</td>
                     <td class="col-2">0</td>
                     <td class="col-2">10</td>
+                    <td class="col-1">10</td>
                     <td class="col-2">10</td>
                     <td class="col-1">0</td>
                     <td class="col-2">0</td>

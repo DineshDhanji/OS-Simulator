@@ -56,23 +56,6 @@
 }
 
 .PSDiv-01 {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    flex-wrap: wrap;
-    height: auto;
-    padding: 20px;
-}
-
-.Algorithm {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 15px 10px;
-}
-
-
-.PSDiv-02 {
     height: auto;
     display: flex;
     padding: 20px;
@@ -88,24 +71,19 @@
     border-radius: 4px;
 }
 
-#ArrivalTimeDiv,
-#BurstTimeDiv,
-#TimeQuantumDiv,
-#PriorityTimeDiv {
+.ArrivalTimeDiv,
+.BurstTimeDiv,
+.TimeQuantumDiv,
+.PriorityTimeDiv {
     display: flex;
     justify-content: space-evenly;
     margin: 10px 0px;
 }
 
-#TimeQuantumDiv,
-#PriorityTimeDiv {
-    display: none;
-}
-
-#ArrivalTimeDiv label,
-#BurstTimeDiv label,
-#TimeQuantumDiv label,
-#PriorityTimeDiv label {
+.ArrivalTimeDiv label,
+.BurstTimeDiv label,
+.TimeQuantumDiv label,
+.PriorityTimeDiv label {
     padding: 6px 0px;
 }
 
@@ -127,12 +105,12 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: auto;
-    margin: 20px 0px 0px 0px;
+    height: 22rem;
+    margin: 35px 0px;
 }
 
-.PSDiv-02-01,
-.PSDiv-02-02 {
+.PSDiv-01-01,
+.PSDiv-01-02 {
     margin: 10px 5px;
 }
 
@@ -153,6 +131,30 @@
 .Terminal-Process-Details .list-group-item {
     display: flex;
     text-align: center;
+}
+
+.PSDiv-02 {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+    height: auto;
+    padding: 0px 0px 10px 0px;
+}
+
+.PSDiv-02-01 {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+    height: auto;
+    padding: 5px;
+}
+
+.PSDiv-02-01 button {
+    margin: 10px;
 }
 
 .PSDiv-03 {

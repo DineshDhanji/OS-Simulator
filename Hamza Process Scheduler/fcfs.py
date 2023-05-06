@@ -1,9 +1,10 @@
 # Process class to represent each process
 class Process:
-    def __init__(self, pid, arrival_time, burst_time):
+    def __init__(self, pid, arrival_time, burst_time, priority):
         self.pid = pid
         self.arrival_time = arrival_time
         self.burst_time = burst_time
+        self.priority = priority
 
 # FCFS scheduling algorithm implementation
 def fcfs_scheduling(processes):
@@ -51,23 +52,22 @@ def fcfs_scheduling(processes):
     print("Average turnaround time:", avg_turnaround_time)
 
 # Example usage
-if __name__ == '__main__':
-    
+
     # Create some processes
-    processes = [
-        Process(1, 0, 10),
-        Process(2, 1, 4),
-        Process(3, 2, 2),
-        Process(4, 3, 1)
-    ]
-    # (DINESH) Below code is for taking manual input you have to implement this in GUI
-    # no_processess = int(input("Enter number of processes : "))
-    # processes = []
-    # for i in range(0, no_processess):
-    #     arr_time = int(input("Arrival Time : "))
-    #     bur_time = int(input("Burst Time : "))
-    #     processes.append(Process(i+1, arr_time, bur_time))
+processes = [
+    Process(1, 0, 10,0),
+    Process(2, 1, 4,0),
+    Process(3, 2, 2,0),
+    Process(4, 3, 1,0)
+]
+# (DINESH) Below code is for taking manual input you have to implement this in GUI
+# no_processess = int(input("Enter number of processes : "))
+# processes = []
+# for i in range(0, no_processess):
+#     arr_time = int(input("Arrival Time : "))
+#     bur_time = int(input("Burst Time : "))
+#     processes.append(Process(i+1, arr_time, bur_time))
 
 
-    # Run the FCFS scheduling algorithm
-    fcfs_scheduling(processes)
+# Run the FCFS scheduling algorithm
+fcfs_scheduling(processes)

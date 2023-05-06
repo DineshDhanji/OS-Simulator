@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>OS Simulator - Process Scheduling</title>
+    <!-- Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"
+        integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"
+        integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="./CSS/Process Scheduling.css">
+     <!-- PyScript -->
+     <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+     <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+     <script>
+        let PID = 1534
+        
+        function AddProcessToTheProcessDetail(ArrivalTime, BurstTime, PriorityTime)
+        {
+            var a = document.getElementsByClassName("Terminal-Process-Details")[0].getElementsByClassName('list-group')[0];
+            var temp = document.createElement('li');
+            temp.classList.add("list-group-item");
+            var newContent = `
+                            <div class="col-3">${PID}</div>
+                            <div class="col-3">${ArrivalTime}</div>
+                            <div class="col-3">${BurstTime}</div>
+                            <div class="col-3">${PriorityTime}</div>
+            `
+            temp.innerHTML = newContent
+            a.append(temp)
+            PID++
+        }
+
+        function CanAlgoBEAppiled()
+        {
+            return document.getElementsByClassName("Terminal-Process-Details")[0].getElementsByClassName('list-group')[0].children.length;
+        }
+     </script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="./Main.html">OS Simulator</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse nav-bar-section-02" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="./Process Scheduling.html">Process Scheduling</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./Disk Management.html">Disk Management</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./Memory Management.html">Memory Management</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Our Team</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="OS-Simulator-Heading container d-flex justify-content-center">
+        <div class="row display-4">Process Scheduling</div>
+    </div>
+    <div class="PSDiv-01 container-fluid">
+        <div class="PSDiv-01-01 col-10 col-lg-5">
+            <div class="Input-Field ">
+                <div class="lead fs-4 text-center" style="margin: 10px 0px">Enter the following required details of
+                    the process</div>
+                <div class="container Input-Field-Div-01">
+                    <div class="ArrivalTimeDiv col-10">
+                        <label for="ArrivalTime" class="col-5">Arrival Time</label>
+                        <input type="number" class="col-6" id="ArrivalTime" placeholder="e.g. 0">
+                    </div>
+                    <div class="BurstTimeDiv col-10">
+                        <label for="BurstTime" class="col-5">Burst Time</label>
+                        <input type="number" class="col-6" id="BurstTime" placeholder="e.g. 10">
+                    </div>
+                    <div class="PriorityTimeDiv col-10">
+                        <label for="PriorityTime" class="col-5">Priority Time</label>
+                        <input type="number" class="col-6" id="PriorityTime" placeholder="e.g. 3">
+                    </div>
+                    <div class="TimeQuantumDiv col-10">
+                        <label for="TimeQuantum" class="col-5">Time Quantum</label>
+                        <input type="number" class="col-6" id="TimeQuantum" placeholder="e.g. 1">
+                    </div>
+                    <button type="button" class="btn btn-primary Add-Process" py-click="AddProcess()">Add
+                        Process</button>
+                    <ul class="list-group col-11" style="font-size: 14px; margin: 10px 7px;">
+                        <li class="list-group-item">Priority will only used for Round Robin and Priority Algorithm.</li>
+                        <li class="list-group-item">Time Quamtum is only required for Round Robin Algorithm</li>
+                    </ul>
+                </div>
+            </div>
+            <py-script>
+            from js import alert, AddProcessToTheProcessDetail
+
+            def AddProcess():
+                ArrivalTimeDiv = Element("ArrivalTime");
+                BurstTimeDiv = Element("BurstTime");
+                PriorityTimeDiv = Element("PriorityTime");
+                if ArrivalTimeDiv.value == '' or BurstTimeDiv.value == '' or PriorityTimeDiv.value == '':
+                    alert("Kindly enter all of the required data fields.")
+                else:
+                    if int(ArrivalTimeDiv.value) < 0 or int(BurstTimeDiv.value) < 0 or int(PriorityTimeDiv.value) < 0:
+                        alert("All values must be positive.")
+                    elif (int(BurstTimeDiv.value) == 0 ):
+                        alert("Burst time can not be zero.")
+                    else:
+                        AddProcessToTheProcessDetail(int(ArrivalTimeDiv.value), int(BurstTimeDiv.value), int(PriorityTimeDiv.value))
+            </py-script>
+        </div>
+        <div class="PSDiv-01-02 col-10 col-lg-6">
+            <div class="Terminal">
+                <div class="lead fs-4" style="padding:10px 11px;">Processes Details</div>
+                <div class="Terminal-Process-Details">
+                    <ul class="list-group list-group-flush" style="padding: 0px 8px;">
+                        <li class="list-group-item">
+                            <div class="col-3 fw-medium">PID</div>
+                            <div class="col-3 fw-medium">Arrival Time</div>
+                            <div class="col-3 fw-medium">Burst Time</div>
+                            <div class="col-3 fw-medium">Priority</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="PSDiv-02 container-fluid">
+        <div class="lead fs-4 text-center" style="margin: 10px 5px">Select the respective algorithm for the
+            demonstration</div>
+        <div class="PSDiv-02-01">
+            <button type="button" class="btn btn-primary" py-click="FCFS()">FCFS Algorithm</button>
+            <button type="button" class="btn btn-primary">SJF Algorithm</button>
+            <button type="button" class="btn btn-primary">Priority Algorithm</button>
+            <button type="button" class="btn btn-primary">Round Robin Algorithm</button>
+        </div>
+        <py-script>
+            from js import alert, CanAlgoBEAppiled
+            class Process:
+                def __init__(self, pid, arrival_time, burst_time, priority):
+                    self.pid = pid
+                    self.arrival_time = arrival_time
+                    self.burst_time = burst_time
+                    self.priority = priority
+
+            def FCFS():
+                numberOfProcess = CanAlgoBEAppiled():
+                if numberOfProcess > 1:
+                    print("yes")
+                    # processes = sorted(processes, key=lambda p: p.arrival_time)
+
+                else:
+                    alert("Can not apply algorithm without processes details")
+        </py-script>
+    </div>
+    <div class="PSDiv-03 container-fluid offset-1 col-10">
+        <div class="lead fs-4" style="margin: 10px 5px">Output</div>
+        <div id="output">
+            <table class="container">
+                <tr>
+                    <td class="col-1 fw-medium">PNo.</td>
+                    <td class="col-1 fw-medium">PID</td>
+                    <td class="col-2 fw-medium">Arrival Time</td>
+                    <td class="col-2 fw-medium">Burst Time</td>
+                    <td class="col-1 fw-medium">Priority</td>
+                    <td class="col-2 fw-medium">Completion Time</td>
+                    <td class="col-1 fw-medium">TAT</td>
+                    <td class="col-2 fw-medium">Wait Time</td>
+                </tr>
+                <tr>
+                    <td class="col-2"><span style="color: #0d6efd;">P</span>0</td>
+                    <td class="col-1">0</td>
+                    <td class="col-2">0</td>
+                    <td class="col-2">10</td>
+                    <td class="col-2">10</td>
+                    <td class="col-1">0</td>
+                    <td class="col-2">0</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>
