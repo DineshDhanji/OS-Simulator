@@ -208,6 +208,25 @@
                         b.classList.add('Terminal-Process-Details')
                         a.parentNode.replaceChild(b, a);
                     }
+                    var c = document.getElementById('output')
+                    var d = document.createElement('div');
+                    var newContentForOutput = `
+                    <table class="container">
+                        <tr>
+                            <td class="col-1 fw-medium">PNo.</td>
+                            <td class="col-1 fw-medium">PID</td>
+                            <td class="col-2 fw-medium">Arrival Time</td>
+                            <td class="col-2 fw-medium">Burst Time</td>
+                            <td class="col-1 fw-medium">Priority</td>
+                            <td class="col-2 fw-medium">Completion Time</td>
+                            <td class="col-1 fw-medium">TAT</td>
+                            <td class="col-2 fw-medium">Wait Time</td>
+                        </tr>
+                    </table>
+                    `
+                    d.setAttribute("id","output");
+                    d.innerHTML = newContentForOutput;
+                    c.parentElement.replaceChild(d, c);
                 }
 
             </script>
