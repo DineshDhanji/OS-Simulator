@@ -181,3 +181,34 @@
     height: auto;
     padding: 6px 20px;
 }
+
+#DataTable {
+    height: max-content;
+    padding: 10px;
+    display: flex;
+    overflow: overlay;
+    padding: 10px 10px 35px 10px;
+}
+
+.DataCol {
+    height: auto;
+    width: 3rem;
+
+}
+
+.DataTD {
+    border: 1px solid lightgray;
+    height: 3rem;
+    color: #198754;
+    font-weight: 600;
+    width: 3rem;
+    padding: 10px;
+    text-align: center;
+}
+
+#PageFault {
+    height: 3rem;
+    padding: 10px 10px 0px 10px;
+    margin: 5px 0px;
+    font-weight: 400;
+}
