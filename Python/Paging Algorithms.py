@@ -13,14 +13,12 @@ def FIFO(pages, pagefault, frame_size, page_frame):
             index = pagefault % frame_size
             page_frame.append(page)
             pagefault += 1
-            print(page_frame, "\n")
-            
         elif not page_found and pagefault >= frame_size:
             index = pagefault % frame_size
             page_frame[index] = page
             pagefault += 1
-            print(page_frame, "\n")
         
+        print(page_frame, "\n")
         
     print("Page Faults occured: " , pagefault, "\n\n")
     return
@@ -76,16 +74,16 @@ def LRU(pages, pagefault, frame_size, page_frame):
             page_frame.append(page)
             pagefault += 1
         elif not page_found and pagefault >= frame_size:
-            count = 0
             framefound = [0] * len(page_frame)
-            for j in range(0,index):
+            for j in range(0,index+2):
                 for l in range(len(page_frame)):
                     if(pages[j] == page_frame[l]):
-                        framefound[l] = count
-                count += 1
+                        framefound[l] = j
+                        print("j = " , j  , "Framefound: " , framefound , "\n")
             min_index = framefound.index(min(framefound))
             page_frame[min_index] = page
             pagefault += 1
+            
         print(page_frame , "\n")
         index += 1
     
@@ -170,16 +168,14 @@ def SecondChance(pages, pagefault, frame_size, page_frame):
                     replace = True
         
         print(accessed , "\n")
-        # print(page_frame, "\n")
+        print(page_frame, "\n")
         index += 1
         
     print("Page Faults occured: " , pagefault, "\n\n")
     return
 
-pages = [7,0,1,2,0,3,0,4,2,3,0,3,2,1,2,0,7,1]
+pages = [1,2,3,4,2,1,5,6,2,1,2,3,7,6,3,2,1,2,3,6]
 pagefault = 0
-# frame_size = int(input("Enter number of page frames: "))
-frame_size = 3
+frame_size = int(input("Enter number of page frames: "))
 page_frame = []
-Counting(pages, pagefault, frame_size, page_frame)
-# SecondChance(pages , pagefault , frame_size , page_frame) Test any function here no need to change the parameters
+# Optimal(pages , pagefault , frame_size , page_frame) # Test any function here no need to change the parameters
