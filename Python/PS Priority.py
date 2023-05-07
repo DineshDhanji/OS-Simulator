@@ -6,11 +6,12 @@ class Process:
         self.priority = priority
 
 def priority_scheduling(processes):
+    processes = sorted(processes, key=lambda p: p.arrival_time)
+    cur_time = processes[0].arrival_time
     # Sort the processes based on their priority
     processes = sorted(processes, key=lambda p: p.priority, reverse=True)
     n = len(processes)
     completed = [False] * n
-    cur_time = 0
     current_time = []
     completion_time = []
     turnaround_time = []
@@ -60,12 +61,10 @@ def priority_scheduling(processes):
 if __name__ == '__main__':
     # Create some processes
     processes = [
-        Process(pid=1, arrival_time=0, burst_time=5, priority=2),
-        Process(pid=2, arrival_time=1, burst_time=3, priority=1),
-        Process(pid=3, arrival_time=2, burst_time=8, priority=4),
-        Process(pid=4, arrival_time=3, burst_time=2, priority=3),
-        Process(pid=5, arrival_time=4, burst_time=4, priority=5)
+        Process(1, 0, 10, 7),
+        Process(2, 1, 40, 3),
+        Process(3, 2, 20, 2),
+        Process(4, 5, 5, 5)
     ]
-
     # Call the priority scheduling function
     priority_scheduling(processes)

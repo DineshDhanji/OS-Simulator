@@ -1,19 +1,17 @@
 # Process class to represent each process
 class Process:
-    def __init__(self, pid, arrival_time, burst_time, priority):
+    def __init__(self, pid, arrival_time, burst_time):
         self.pid = pid
         self.arrival_time = arrival_time
         self.burst_time = burst_time
-        self.priority = priority
 
 # FCFS scheduling algorithm implementation
 def fcfs_scheduling(processes):
     # Sort the processes based on their arrival time
     processes = sorted(processes, key=lambda p: p.arrival_time)
     
-    # (DINESH) I have made lists of current time, completion time, waiting time, turnaround time. In table you have to print pid, arrival time, burst time from the process class attributes and completion time, turnaround time , waiting time from these lists
     # Initialize the current time and waiting time
-    cur_time = 0
+    cur_time = processes[0].arrival_time
     current_time = []
     completion_time = []
     wait_time = 0
@@ -52,22 +50,22 @@ def fcfs_scheduling(processes):
     print("Average turnaround time:", avg_turnaround_time)
 
 # Example usage
-
+if __name__ == '__main__':
+    
     # Create some processes
-processes = [
-    Process(1, 0, 10,0),
-    Process(2, 1, 4,0),
-    Process(3, 2, 2,0),
-    Process(4, 3, 1,0)
-]
-# (DINESH) Below code is for taking manual input you have to implement this in GUI
-# no_processess = int(input("Enter number of processes : "))
-# processes = []
-# for i in range(0, no_processess):
-#     arr_time = int(input("Arrival Time : "))
-#     bur_time = int(input("Burst Time : "))
-#     processes.append(Process(i+1, arr_time, bur_time))
+    processes = [
+        Process(1, 0, 10),
+        Process(2, 1, 4),
+        Process(3, 2, 2),
+        Process(4, 4, 5)
+    ]
+    # no_processess = int(input("Enter number of processes : "))
+    # processes = []
+    # for i in range(0, no_processess):
+    #     arr_time = int(input("Arrival Time : "))
+    #     bur_time = int(input("Burst Time : "))
+    #     processes.append(Process(i+1, arr_time, bur_time))
 
 
-# Run the FCFS scheduling algorithm
-fcfs_scheduling(processes)
+    # Run the FCFS scheduling algorithm
+    fcfs_scheduling(processes)
