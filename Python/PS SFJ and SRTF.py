@@ -6,13 +6,13 @@ class Process:
         self.burst_time = burst_time
         self.remaining_time = burst_time
 
-# FCFS scheduling algorithm implementation
+# SJF (Non preemptive) scheduling algorithm implementation
 def sjf_np_scheduling(processes):
-    # Sort the processes based on their burst time
+    processes = sorted(processes, key=lambda p: p.arrival_time)
+    cur_time = processes[0].arrival_time
     processes = sorted(processes, key=lambda p: p.burst_time)
     n = len(processes)
     completed = [False] * n
-    cur_time = 0
     current_time = []
     completion_time = []
     turnaround_time = []
@@ -27,10 +27,9 @@ def sjf_np_scheduling(processes):
         min_burst_time = float('inf')
         min_index = -1
         for i in range(n):
-            if not completed[i] and processes[i].arrival_time <= cur_time and processes[i].burst_time < min_burst_time:
+            if (not completed[i] and processes[i].arrival_time <= cur_time and processes[i].burst_time < min_burst_time):
                 min_burst_time = processes[i].burst_time
                 min_index = i
-
         if min_index == -1:
             # All processes have been executed
             break
@@ -61,11 +60,10 @@ def sjf_np_scheduling(processes):
     print("Average turnaround time:", avg_turnaround_time)
 
 def sjf_p_scheduling(processes):
-    # Sort the processes based on their arrival time
     processes = sorted(processes, key=lambda p: p.arrival_time)
+    cur_time = processes[0].arrival_time
     n = len(processes)
     completed = [False] * n
-    cur_time = 0
     current_time = []
     completion_time = []
     turnaround_time = []
@@ -124,9 +122,9 @@ if __name__ == '__main__':
     # Create some processes
     processes = [
         Process(1, 0, 10),
-        Process(2, 1, 4),
-        Process(3, 2, 2),
-        Process(4, 3, 1)
+        Process(2, 1, 40),
+        Process(3, 2, 20),
+        Process(4, 45, 5)
     ]
     # no_processess = int(input("Enter number of processes : "))
     # processes = []

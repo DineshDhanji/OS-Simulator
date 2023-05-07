@@ -443,15 +443,15 @@
 
                     # Sort the processes based on their arrival time
                     processes = sorted(processes, key=lambda p: p.arrival_time)
+                    cur_time = processes[0].arrival_time
                     n = len(processes)
                     completed = [False] * n
-                    cur_time = 0
                     current_time = []
                     completion_time = []
                     turnaround_time = []
                     waiting_time = []
                     total_turnaround_time = 0
-                    total_waiting_time = 0  
+                    total_waiting_time = 0
                     j = 0  
                     while True:
                         # Find the process with the shortest remaining time
@@ -461,7 +461,7 @@
                             if not completed[i] and processes[i].arrival_time <= cur_time and processes[i].remaining_time < min_remaining_time:
                                 min_remaining_time = processes[i].remaining_time
                                 min_index = i
-                                
+
                         if min_index == -1:
                             # All processes have been executed
                             break
@@ -482,8 +482,9 @@
                             total_turnaround_time += ta_time
                             total_waiting_time += wait_time
                             completed[min_index] = True
-                            Output(j, process.pid, process.arrival_time, process.burst_time, process.priority, compl_time, ta_time, wait_time)
+                            Output(j, processes[j].pid, processes[j].arrival_time, processes[j].burst_time, processes[j].priority, compl_time, ta_time, wait_time)
                             j+=1
+
                         # Update the current time
                         cur_time += 1
 
@@ -503,10 +504,11 @@
                         processes.append(Process(int(a[0]), int(a[1]), int(a[2]), 0))
 
                     # Sort the processes based on their burst time
+                    processes = sorted(processes, key=lambda p: p.arrival_time)
+                    cur_time = processes[0].arrival_time
                     processes = sorted(processes, key=lambda p: p.burst_time)
                     n = len(processes)
                     completed = [False] * n
-                    cur_time = 0
                     current_time = []
                     completion_time = []
                     turnaround_time = []
@@ -520,10 +522,9 @@
                         min_burst_time = float('inf')
                         min_index = -1
                         for i in range(n):
-                            if not completed[i] and processes[i].arrival_time <= cur_time and processes[i].burst_time < min_burst_time:
+                            if (not completed[i] and processes[i].arrival_time <= cur_time and processes[i].burst_time < min_burst_time):
                                 min_burst_time = processes[i].burst_time
                                 min_index = i
-
                         if min_index == -1:
                             # All processes have been executed
                             break
@@ -540,9 +541,8 @@
                         total_turnaround_time += ta_time
                         total_waiting_time += wait_time
                         completed[min_index] = True
-                        Output(j, process.pid, process.arrival_time, process.burst_time, process.priority, compl_time, ta_time, wait_time)
+                        Output(j, processes[j].pid, processes[j].arrival_time, processes[j].burst_time, processes[j].priority, compl_time, ta_time, wait_time)
                         j+=1
-
                         # Update the current time
                         cur_time = compl_time
 
