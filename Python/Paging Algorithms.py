@@ -169,17 +169,18 @@ def SecondChance(pages, pagefault, frame_size, page_frame):
                     pagefault+=1
                     replace = True
         
-        print(accessed , "\n")
-        # print(page_frame, "\n")
+        # print(accessed , "\n")
+        print(page_frame, "\n")
         index += 1
         
     print("Page Faults occured: " , pagefault, "\n\n")
     return
 
-pages = [7,0,1,2,0,3,0,4,2,3,0,3,2,1,2,0,7,1]
+pages = [
+7, 2, 3, 1, 2, 5, 3, 4, 6, 7, 7, 1, 0, 5, 4, 6, 2, 3, 0 , 1]
 pagefault = 0
 # frame_size = int(input("Enter number of page frames: "))
 frame_size = 3
 page_frame = []
-Counting(pages, pagefault, frame_size, page_frame)
+FIFO(pages, pagefault, frame_size, page_frame)
 # SecondChance(pages , pagefault , frame_size , page_frame) Test any function here no need to change the parameters
