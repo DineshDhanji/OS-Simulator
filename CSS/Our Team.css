@@ -1,0 +1,57 @@
+/* Nav bar CSS Starts */
+.nav-bar-section-02 {
+    justify-content: flex-end;
+    align-items: center;
+}
+
+@media (max-width: 991px) {
+    .nav-bar-section-02 {
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+}
+
+/* Nav bar CSS Ends */
+
+/* Scroll Bar CSS Starts */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 6px;
+    border: 1px solid lightgray;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #198754;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: darkgray;
+}
+
+/* Scroll Bar CSS Ends */
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.OS-Simulator-Heading {
+    padding: 30px 0;
+}
+
+.card {
+    margin: 10px;
+}
+
+.letter {
+    font-weight: 200;
+    font-size: 5.3rem;
+    display: flex;
+    height: 10rem;
+    justify-content: center;
+    align-items: center;
+}
