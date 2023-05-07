@@ -271,16 +271,15 @@
                             page_frame.append(page)
                             pagefault += 1
                         elif not page_found and pagefault >= frame_size:
-                            count = 0
                             framefound = [0] * len(page_frame)
-                            for j in range(0,index):
+                            for j in range(0,index+2):
                                 for l in range(len(page_frame)):
                                     if(pages[j] == page_frame[l]):
-                                        framefound[l] = count
-                                count += 1
+                                        framefound[l] = j
                             min_index = framefound.index(min(framefound))
                             page_frame[min_index] = page
                             pagefault += 1
+                            
                         tempList = json.dumps(page_frame) # Converting Python list into JavaScript list.
                         PrintCol(tempList)
                         index += 1
